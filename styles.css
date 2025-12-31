@@ -1,0 +1,271 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background-color: #01060b;
+  color: #c5cace;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: #5bb9ff;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+header {
+  background-color: #0c111b;
+  border-bottom: 1px solid #1a212f;
+  padding: 1rem 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  height: 40px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav a {
+  color: #c5cace;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+nav a:hover,
+nav a:focus,
+nav a.active {
+  color: #5bb9ff;
+}
+
+main {
+  flex: 1;
+}
+
+/* Hero Section */
+.hero {
+  background: radial-gradient(ellipse at center, rgba(20, 36, 53, 0.8) 0%, rgba(1, 6, 11, 1) 100%);
+  padding: 4rem 0 6rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #e6eaf0;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  color: #abb5c7;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  background-color: #5bb9ff;
+  color: #01060b;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.cta-button:hover,
+.cta-button:focus {
+  background-color: #8acfff;
+}
+
+/* Features Section */
+.features {
+  background-color: #0c111b;
+  padding: 3rem 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.feature h2 {
+  margin-bottom: 0.5rem;
+  color: #e6eaf0;
+  font-size: 1.4rem;
+}
+
+.feature p {
+  color: #9aa5b9;
+  font-size: 1rem;
+}
+
+/* Page Hero Section */
+.page-hero {
+  background-color: #0c111b;
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.page-hero h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #e6eaf0;
+}
+
+.page-hero p {
+  color: #abb5c7;
+}
+
+/* Text Section */
+.text-section {
+  padding: 2rem 0 4rem;
+  background-color: #01060b;
+}
+
+.text-section h2 {
+  font-size: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: #e6eaf0;
+}
+
+.text-section p,
+.text-section li {
+  color: #9aa5b9;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.values-list {
+  list-style: disc;
+  margin-left: 1.5rem;
+}
+
+/* Products Section */
+.products-section {
+  background-color: #01060b;
+  padding: 2rem 0 4rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.product-card {
+  background-color: #0c111b;
+  border: 1px solid #1a212f;
+  border-radius: 6px;
+  padding: 1.5rem;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s ease;
+}
+
+.product-card:hover,
+.product-card:focus-within {
+  border-color: #5bb9ff;
+}
+
+.product-card h3 {
+  margin-bottom: 0.5rem;
+  color: #e6eaf0;
+  font-size: 1.3rem;
+}
+
+.product-card p {
+  color: #9aa5b9;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.status {
+  font-weight: 600;
+  margin-top: auto;
+}
+
+.status-available {
+  color: #5bb9ff;
+}
+
+.status-soon {
+  color: #e5a34f;
+}
+
+.status-future {
+  color: #6c7a91;
+}
+
+.note {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #6c7a91;
+}
+
+/* Contact Section */
+.contact-section {
+  background-color: #01060b;
+  padding: 2rem 0 4rem;
+}
+
+.contact-section p,
+.contact-section li {
+  color: #9aa5b9;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.contact-list {
+  list-style: none;
+  margin: 1rem 0;
+}
+
+.contact-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+footer {
+  background-color: #0c111b;
+  padding: 1rem 0;
+  text-align: center;
+  border-top: 1px solid #1a212f;
+}
+
+.footer-container p {
+  color: #6c7a91;
+  font-size: 0.9rem;
+}

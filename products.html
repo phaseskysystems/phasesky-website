@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products — PhaseSky</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <img src="assets/logo.png" alt="PhaseSky logo" />
+        </a>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html" class="active">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>Products &amp; Roadmap</h1>
+          <p>From core electronics to complete aerial systems</p>
+        </div>
+      </section>
+      <section class="products-section">
+        <div class="container">
+          <h2>Current &amp; Upcoming Releases</h2>
+          <div class="product-grid">
+            <div class="product-card">
+              <h3>PCB v1 — Core Flight Controller</h3>
+              <p>
+                Our first custom PCB lays the foundation for stable flight and
+                reliable power delivery. Open schematics &amp; firmware are
+                available for collaboration and inspection.
+              </p>
+              <p class="status status-available">Available Now</p>
+            </div>
+            <div class="product-card">
+              <h3>Drone v1 — Integration Testbed</h3>
+              <p>
+                A minimalist airframe designed to validate PCB v1 in real
+                flight. This prototype proves the feasibility of our
+                architecture.
+              </p>
+              <p class="status status-soon">Coming Soon</p>
+            </div>
+            <div class="product-card">
+              <h3>PCB v2 — Refined Electronics</h3>
+              <p>
+                Refinements in layout, efficiency, and reliability. Lessons
+                learned from v1 are applied to build a more robust controller.
+              </p>
+              <p class="status status-future">In Development</p>
+            </div>
+            <div class="product-card">
+              <h3>Drone v2 — Performance Prototype</h3>
+              <p>
+                Improved endurance, weight distribution, and control. This
+                iteration focuses on turning our testbed into a capable
+                platform.
+              </p>
+              <p class="status status-future">In Development</p>
+            </div>
+            <div class="product-card">
+              <h3>Custom Controller</h3>
+              <p>
+                A dedicated radio controller engineered for deterministic
+                signal handling and precise control of PhaseSky drones.
+              </p>
+              <p class="status status-future">Planned</p>
+            </div>
+            <div class="product-card">
+              <h3>PCB v3 — Mesh‑Capable</h3>
+              <p>
+                Introducing multi‑node communication support. Synchronization
+                primitives enable coordinated flight across multiple units.
+              </p>
+              <p class="status status-future">Planned</p>
+            </div>
+            <div class="product-card">
+              <h3>Drone v3 — Mesh‑Ready</h3>
+              <p>
+                Aerial systems capable of coordinated multi‑unit flight, leveraging
+                PCB v3 for distributed intelligence.
+              </p>
+              <p class="status status-future">Planned</p>
+            </div>
+            <div class="product-card">
+              <h3>Mass‑Programmable Controller</h3>
+              <p>
+                Send a single program to multiple drones. Designed for fleet
+                operations and rapid deployment.
+              </p>
+              <p class="status status-future">Planned</p>
+            </div>
+          </div>
+          <p class="note">
+            Status definitions:
+            <span class="status-available">Available Now</span>,
+            <span class="status-soon">Coming Soon</span>,
+            <span class="status-future">Planned/In Development</span>
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container footer-container">
+        <p>&copy; 2025 PhaseSky. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
