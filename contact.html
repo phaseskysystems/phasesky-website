@@ -3,63 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Contact PhaseSky for disciplined aerospace collaboration." />
+    <meta property="og:title" content="Contact — PhaseSky" />
+    <meta property="og:description" content="Contact PhaseSky about synchronized aerial systems and PCB releases." />
+    <meta
+      property="og:image"
+      content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%23060a12'/%3E%3Cpath d='M140 315h260c80 0 80 0 160 0h300' stroke='%2376b7ff' stroke-width='8' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='600' cy='315' r='60' fill='none' stroke='%239cacc2' stroke-width='8'/%3E%3Ctext x='140' y='180' fill='%23e6edf5' font-family='Space Grotesk,system-ui,sans-serif' font-size='72' letter-spacing='-0.02em'%3EPhaseSky%3C/text%3E%3Ctext x='140' y='240' fill='%239cacc2' font-family='Space Grotesk,system-ui,sans-serif' font-size='32'%3ESynchronized Aerial Systems%3C/text%3E%3C/svg%3E"
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23060a12'/%3E%3Cpath d='M6 32h20c6 0 6 0 12 0h20' stroke='%2376b7ff' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='8' fill='none' stroke='%239cacc2' stroke-width='3'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>Contact — PhaseSky</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header>
-      <div class="container header-container">
-        <a href="index.html" class="logo">
-          <img src="assets/logo.png" alt="PhaseSky logo" />
+  <body data-page="contact">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="brand" aria-label="PhaseSky home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="presentation" focusable="false">
+              <rect x="6" y="22" width="52" height="20" rx="10" fill="none" stroke="#9cacc2" stroke-width="2" />
+              <path d="M6 32h20c6 0 6 0 12 0h20" stroke="#76b7ff" stroke-width="3" fill="none" stroke-linecap="round" />
+              <circle cx="32" cy="32" r="6" fill="#76b7ff" fill-opacity="0.15" stroke="#76b7ff" stroke-width="2" />
+            </svg>
+          </span>
+          <span class="brand-name">PhaseSky</span>
         </a>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html" class="active">Contact</a></li>
+        <nav class="site-nav" aria-label="Main">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+          <ul id="nav-menu">
+            <li><a class="nav-link" href="index.html">Home</a></li>
+            <li><a class="nav-link" href="about.html">About</a></li>
+            <li><a class="nav-link" href="products.html">Products</a></li>
+            <li><a class="nav-link active" href="contact.html">Contact</a></li>
+            <li><a class="nav-link" href="#" aria-label="GitHub (coming soon)">GitHub</a></li>
           </ul>
         </nav>
       </div>
     </header>
-    <main>
-      <section class="page-hero">
-        <div class="container">
-          <h1>Contact PhaseSky</h1>
-          <p>Reach out to our engineering team</p>
+
+    <main id="main">
+      <section class="container hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Contact</p>
+          <h1>Quiet, direct communication with engineering.</h1>
+          <p>Use the form for disciplined collaboration. We respond with specifics—not marketing copy.</p>
         </div>
       </section>
-      <section class="contact-section">
-        <div class="container">
-          <p>
-            PhaseSky operates as a focused engineering program. We welcome
-            inquiries from builders, researchers, and collaborators. For general
-            questions, partnership discussions, or technical support:
-          </p>
-          <ul class="contact-list">
-            <li>
-              Email:
-              <a href="mailto:info@phasesky.com">info@phasesky.com</a>
-            </li>
-            <li>
-              GitHub:
-              <a href="https://github.com/phasesky" target="_blank" rel="noopener"
-                >github.com/phasesky</a
-              >
-            </li>
-          </ul>
-          <p>
-            Our primary communication channel is email; responses are typically
-            provided within two business days. For urgent matters, please note
-            your timeline in the subject line.
-          </p>
+
+      <section class="container reveal">
+        <div class="contact-grid">
+          <form class="card contact-form" name="contact" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact" />
+            <label>
+              <span class="eyebrow">Name</span>
+              <input type="text" name="name" required />
+            </label>
+            <label>
+              <span class="eyebrow">Email</span>
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              <span class="eyebrow">Message</span>
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+            <button class="button" type="submit">Send</button>
+          </form>
+          <div class="card">
+            <h3>Other channels</h3>
+            <p>GitHub repository link will be published alongside the open-source flight control stack.</p>
+            <p>For PCB v1 or integration discussions, include technical context in your note.</p>
+          </div>
         </div>
       </section>
     </main>
-    <footer>
-      <div class="container footer-container">
-        <p>&copy; 2025 PhaseSky. All rights reserved.</p>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="brand" aria-label="PhaseSky">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="presentation" focusable="false">
+              <rect x="6" y="22" width="52" height="20" rx="10" fill="none" stroke="#9cacc2" stroke-width="2" />
+              <path d="M6 32h20c6 0 6 0 12 0h20" stroke="#76b7ff" stroke-width="3" fill="none" stroke-linecap="round" />
+              <circle cx="32" cy="32" r="6" fill="#76b7ff" fill-opacity="0.15" stroke="#76b7ff" stroke-width="2" />
+            </svg>
+          </span>
+          <span>PhaseSky</span>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="products.html">Products</a>
+          <a href="contact.html">Contact</a>
+        </div>
       </div>
     </footer>
+    <script src="main.js"></script>
   </body>
 </html>
