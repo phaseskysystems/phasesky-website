@@ -3,117 +3,163 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PhaseSky products and roadmap for synchronized aerial systems." />
+    <meta property="og:title" content="Products — PhaseSky" />
+    <meta property="og:description" content="Roadmap across PCB and drone releases with open-source control." />
+    <meta property="og:image" content="/Logo.png" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/Logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>Products — PhaseSky</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header>
-      <div class="container header-container">
-        <a href="index.html" class="logo">
-          <img src="assets/logo.png" alt="PhaseSky logo" />
+  <body data-page="products">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="brand" aria-label="PhaseSky home">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="/Logo.png" alt="" class="brand-logo" />
+          </span>
+          <span class="brand-name">PhaseSky</span>
         </a>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="products.html" class="active">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
+        <nav class="site-nav" aria-label="Main">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+          <ul id="nav-menu">
+            <li><a class="nav-link" href="index.html">Home</a></li>
+            <li><a class="nav-link" href="about.html">About</a></li>
+            <li><a class="nav-link active" href="products.html">Products</a></li>
+            <li><a class="nav-link" href="contact.html">Contact</a></li>
+            <li><a class="nav-link" href="#" aria-label="GitHub (coming soon)">GitHub</a></li>
           </ul>
         </nav>
       </div>
     </header>
-    <main>
-      <section class="page-hero">
-        <div class="container">
-          <h1>Products &amp; Roadmap</h1>
-          <p>From core electronics to complete aerial systems</p>
+
+    <main id="main">
+      <!-- version 1.5.1 -->
+      <section class="container hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Products &amp; roadmap</p>
+          <h1>Clear phases from PCB to synchronized flight.</h1>
+          <p>A roadmap that advances hardware and control together. Open flight control and documentation stay available; hardware releases ship when verified.</p>
         </div>
       </section>
-      <section class="products-section">
-        <div class="container">
-          <h2>Current &amp; Upcoming Releases</h2>
-          <div class="product-grid">
-            <div class="product-card">
-              <h3>PCB v1 — Core Flight Controller</h3>
-              <p>
-                Our first custom PCB lays the foundation for stable flight and
-                reliable power delivery. Open schematics &amp; firmware are
-                available for collaboration and inspection.
-              </p>
-              <p class="status status-available">Available Now</p>
-            </div>
-            <div class="product-card">
-              <h3>Drone v1 — Integration Testbed</h3>
-              <p>
-                A minimalist airframe designed to validate PCB v1 in real
-                flight. This prototype proves the feasibility of our
-                architecture.
-              </p>
-              <p class="status status-soon">Coming Soon</p>
-            </div>
-            <div class="product-card">
-              <h3>PCB v2 — Refined Electronics</h3>
-              <p>
-                Refinements in layout, efficiency, and reliability. Lessons
-                learned from v1 are applied to build a more robust controller.
-              </p>
-              <p class="status status-future">In Development</p>
-            </div>
-            <div class="product-card">
-              <h3>Drone v2 — Performance Prototype</h3>
-              <p>
-                Improved endurance, weight distribution, and control. This
-                iteration focuses on turning our testbed into a capable
-                platform.
-              </p>
-              <p class="status status-future">In Development</p>
-            </div>
-            <div class="product-card">
-              <h3>Custom Controller</h3>
-              <p>
-                A dedicated radio controller engineered for deterministic
-                signal handling and precise control of PhaseSky drones.
-              </p>
-              <p class="status status-future">Planned</p>
-            </div>
-            <div class="product-card">
-              <h3>PCB v3 — Mesh‑Capable</h3>
-              <p>
-                Introducing multi‑node communication support. Synchronization
-                primitives enable coordinated flight across multiple units.
-              </p>
-              <p class="status status-future">Planned</p>
-            </div>
-            <div class="product-card">
-              <h3>Drone v3 — Mesh‑Ready</h3>
-              <p>
-                Aerial systems capable of coordinated multi‑unit flight, leveraging
-                PCB v3 for distributed intelligence.
-              </p>
-              <p class="status status-future">Planned</p>
-            </div>
-            <div class="product-card">
-              <h3>Mass‑Programmable Controller</h3>
-              <p>
-                Send a single program to multiple drones. Designed for fleet
-                operations and rapid deployment.
-              </p>
-              <p class="status status-future">Planned</p>
-            </div>
+
+      <section class="container reveal">
+        <div class="section-header">
+          <p class="eyebrow">Featured</p>
+          <h2>PCB v1</h2>
+          <p>Baseline flight controller for controlled testing. Stable power, sensor stack, and deterministic timing.</p>
+          <div class="actions">
+            <a class="button" href="#">View PCB v1</a>
+            <a class="button ghost" href="contact.html">Discuss integration</a>
           </div>
-          <p class="note">
-            Status definitions:
-            <span class="status-available">Available Now</span>,
-            <span class="status-soon">Coming Soon</span>,
-            <span class="status-future">Planned/In Development</span>
-          </p>
+        </div>
+      </section>
+
+      <!-- version 1.5.1 -->
+      <section class="container reveal">
+        <div class="section-header">
+          <p class="eyebrow">Roadmap</p>
+          <h2>Progress tracked by version.</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <h3>PCB v1 — Available (Pre-Order)</h3>
+              <p>Baseline controller with open flight control and docs. Hardware sold as built.</p>
+              <p><strong>Next:</strong> Expand validation data and public build instructions.</p>
+            </article>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <h3>Drone v1 — Coming Soon</h3>
+              <p>Reference airframe integrating PCB v1 for disciplined flight tests.</p>
+              <p><strong>Next:</strong> Publish flight envelopes and tuning notes.</p>
+            </article>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <h3>PCB v2 — In Development</h3>
+              <p>Latency-optimized board with improved RF discipline and sync taps.</p>
+              <p><strong>Next:</strong> Mesh timing experiments and EMI characterization.</p>
+            </article>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <h3>Drone v2 — In Development</h3>
+              <p>Higher-thrust platform validating multi-node timing and mesh links.</p>
+              <p><strong>Next:</strong> Airframe layout and thermal management.</p>
+            </article>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <h3>Controller — Planned</h3>
+              <p>Ground unit with deterministic command latency and secure mesh handoff.</p>
+              <p><strong>Next:</strong> Define operator UX and link discipline.</p>
+            </article>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <h3>PCB v3 Mesh — Planned</h3>
+              <p>Mesh-ready control board built for distributed phase alignment.</p>
+              <p><strong>Next:</strong> Multi-node sync demonstrations.</p>
+            </article>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <h3>Drone v3 Mesh — Planned</h3>
+              <p>Cooperative flight testbed demonstrating synchronized aerial swarms.</p>
+              <p><strong>Next:</strong> Mesh flight trials.</p>
+            </article>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-card">
+              <h3>Mass Programmable Controller — Planned</h3>
+              <p>Operator interface built for fleet-scale programming and monitoring.</p>
+              <p><strong>Next:</strong> Define interface states and reliability gates.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="container reveal">
+        <div class="section-header">
+          <p class="eyebrow">Open source</p>
+          <h2>Control remains open; hardware follows validation.</h2>
+        </div>
+        <div class="card">
+          <p>Flight control and documentation stay open. Hardware is sold as it matures, with select design details shared after reliability is proven.</p>
         </div>
       </section>
     </main>
-    <footer>
-      <div class="container footer-container">
-        <p>&copy; 2025 PhaseSky. All rights reserved.</p>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="brand" aria-label="PhaseSky">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="/Logo.png" alt="" class="brand-logo" />
+          </span>
+          <span>PhaseSky</span>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="products.html">Products</a>
+          <a href="contact.html">Contact</a>
+        </div>
       </div>
     </footer>
+    <script src="main.js"></script>
   </body>
 </html>

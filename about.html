@@ -3,70 +3,123 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="About PhaseSky — synchronized aerial systems designed with disciplined engineering." />
+    <meta property="og:title" content="About PhaseSky" />
+    <meta property="og:description" content="Mission, values, and inspiration behind PhaseSky's synchronized aerial systems." />
+    <meta property="og:image" content="/Logo.png" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/Logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>About — PhaseSky</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header>
-      <div class="container header-container">
-        <a href="index.html" class="logo">
-          <img src="assets/logo.png" alt="PhaseSky logo" />
+  <body data-page="about">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="brand" aria-label="PhaseSky home">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="/Logo.png" alt="" class="brand-logo" />
+          </span>
+          <span class="brand-name">PhaseSky</span>
         </a>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html" class="active">About</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
+        <nav class="site-nav" aria-label="Main">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+          <ul id="nav-menu">
+            <li><a class="nav-link" href="index.html">Home</a></li>
+            <li><a class="nav-link active" href="about.html">About</a></li>
+            <li><a class="nav-link" href="products.html">Products</a></li>
+            <li><a class="nav-link" href="contact.html">Contact</a></li>
+            <li><a class="nav-link" href="#" aria-label="GitHub (coming soon)">GitHub</a></li>
           </ul>
         </nav>
       </div>
     </header>
-    <main>
-      <section class="page-hero">
-        <div class="container">
-          <h1>About PhaseSky</h1>
-          <p>Our mission and principles</p>
+
+    <main id="main">
+      <section class="container hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">About</p>
+          <h1>Disciplined aerospace engineering for synchronized flight.</h1>
+          <p>PhaseSky designs and builds synchronized micro-drone systems, advancing distributed aerial intelligence through physics-driven engineering and disciplined innovation.</p>
         </div>
       </section>
-      <section class="text-section">
-        <div class="container">
-          <h2>Mission Statement</h2>
-          <p>
-            PhaseSky designs and builds synchronized micro‑drone systems, advancing
-            distributed aerial intelligence through physics‑driven engineering
-            and disciplined innovation.
-          </p>
-          <p>
-            We exist to engineer aerial systems where signal, timing, and flight
-            converge. Our work documents real constraints, failures, and
-            progress—without exaggeration or hype.
-          </p>
 
-          <h2>Values</h2>
-          <ul class="values-list">
-            <li><strong>Future‑Forward Engineering</strong> — we design with the next decade in mind.</li>
-            <li><strong>Aerospace Discipline</strong> — precision and rigor guide every decision.</li>
-            <li><strong>Distributed Intelligence</strong> — we build systems that work together seamlessly.</li>
-            <li><strong>Physics‑Driven Design</strong> — we respect the laws that govern flight.</li>
-            <li><strong>Minimalism with Intent</strong> — form serves function, nothing more.</li>
-            <li><strong>Credibility &amp; Seriousness</strong> — no hype, only results.</li>
-          </ul>
+      <section class="container reveal">
+        <div class="section-header">
+          <p class="eyebrow">Mission</p>
+          <h2>Aligned to the physics of flight and signal.</h2>
+        </div>
+        <div class="card">
+          <p>PhaseSky builds synchronized aerial systems where physics, signal, and flight operate as one.</p>
+          <p>Current focus: designing a custom drone from the ground up—open-source flight control, custom PCBs, and systems engineering.</p>
+        </div>
+      </section>
 
-          <h2>Era &amp; Inspiration</h2>
-          <p>
-            PhaseSky operates at the dawn of the distributed intelligence age
-            (2025–2040). Our inspiration comes from modern aerospace, early
-            spaceflight programs, and the disciplined engineering of the Cold
-            War era.
-          </p>
+      <section class="container reveal">
+        <div class="section-header">
+          <p class="eyebrow">Values</p>
+          <h2>Principles that keep the program on-course.</h2>
+        </div>
+        <div class="simple-grid">
+          <article class="card">
+            <h3>Timing discipline</h3>
+            <p>Sync-first design keeps control loops, RF links, and sensor fusion aligned.</p>
+          </article>
+          <article class="card">
+            <h3>Signal clarity</h3>
+            <p>Noise-aware electronics and telemetry traces guide every iteration.</p>
+          </article>
+          <article class="card">
+            <h3>System integrity</h3>
+            <p>Integrated hardware, firmware, and airframes reduce surprises downstream.</p>
+          </article>
+          <article class="card">
+            <h3>Transparent craft</h3>
+            <p>Open-source control stack and documented processes invite audit and collaboration.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container reveal">
+        <div class="section-header">
+          <p class="eyebrow">Era &amp; inspiration</p>
+          <h2>Near-future aerospace without the noise.</h2>
+        </div>
+        <div class="simple-grid">
+          <article class="card">
+            <h3>2025–2040 horizon</h3>
+            <p>Designing for modular, verifiable distributed aerial systems.</p>
+          </article>
+          <article class="card">
+            <h3>Avionics-inspired clarity</h3>
+            <p>HUD-like simplicity informs how we communicate status and risk.</p>
+          </article>
+          <article class="card">
+            <h3>Engineering-first narrative</h3>
+            <p>Every artifact points to measurable work: PCBs, firmware, data, and controls research.</p>
+          </article>
         </div>
       </section>
     </main>
-    <footer>
-      <div class="container footer-container">
-        <p>&copy; 2025 PhaseSky. All rights reserved.</p>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="brand" aria-label="PhaseSky">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="/Logo.png" alt="" class="brand-logo" />
+          </span>
+          <span>PhaseSky</span>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="products.html">Products</a>
+          <a href="contact.html">Contact</a>
+        </div>
       </div>
     </footer>
+    <script src="main.js"></script>
   </body>
 </html>
