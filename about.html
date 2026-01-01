@@ -6,18 +6,12 @@
     <meta name="description" content="About PhaseSky — synchronized aerial systems designed with disciplined engineering." />
     <meta property="og:title" content="About PhaseSky" />
     <meta property="og:description" content="Mission, values, and inspiration behind PhaseSky's synchronized aerial systems." />
-    <meta
-      property="og:image"
-      content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%23060a12'/%3E%3Cpath d='M140 315h260c80 0 80 0 160 0h300' stroke='%2376b7ff' stroke-width='8' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='600' cy='315' r='60' fill='none' stroke='%239cacc2' stroke-width='8'/%3E%3Ctext x='140' y='180' fill='%23e6edf5' font-family='Space Grotesk,system-ui,sans-serif' font-size='72' letter-spacing='-0.02em'%3EPhaseSky%3C/text%3E%3Ctext x='140' y='240' fill='%239cacc2' font-family='Space Grotesk,system-ui,sans-serif' font-size='32'%3ESynchronized Aerial Systems%3C/text%3E%3C/svg%3E"
-    />
+    <meta property="og:image" content="PhaseSkyLogo.png" />
     <meta property="og:type" content="website" />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23060a12'/%3E%3Cpath d='M6 32h20c6 0 6 0 12 0h20' stroke='%2376b7ff' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='8' fill='none' stroke='%239cacc2' stroke-width='3'/%3E%3C/svg%3E"
-    />
+    <link rel="icon" href="PhaseSkyLogo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <title>About — PhaseSky</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -26,13 +20,7 @@
     <header class="site-header">
       <div class="container nav-container">
         <a href="index.html" class="brand" aria-label="PhaseSky home">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 64 64" role="presentation" focusable="false">
-              <rect x="6" y="22" width="52" height="20" rx="10" fill="none" stroke="#9cacc2" stroke-width="2" />
-              <path d="M6 32h20c6 0 6 0 12 0h20" stroke="#76b7ff" stroke-width="3" fill="none" stroke-linecap="round" />
-              <circle cx="32" cy="32" r="6" fill="#76b7ff" fill-opacity="0.15" stroke="#76b7ff" stroke-width="2" />
-            </svg>
-          </span>
+          <img src="PhaseSkyLogo.png" alt="PhaseSky logo" class="brand-logo" />
           <span class="brand-name">PhaseSky</span>
         </a>
         <nav class="site-nav" aria-label="Main">
@@ -42,98 +30,99 @@
             <li><a class="nav-link active" href="about.html">About</a></li>
             <li><a class="nav-link" href="products.html">Products</a></li>
             <li><a class="nav-link" href="contact.html">Contact</a></li>
-            <li><a class="nav-link" href="#" aria-label="GitHub (coming soon)">GitHub</a></li>
+            <li><a class="nav-link ghost" href="#" aria-label="GitHub (coming soon)">GitHub</a></li>
           </ul>
         </nav>
       </div>
     </header>
 
     <main id="main">
-      <section class="container hero">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">About</p>
-          <h1>Disciplined aerospace engineering for synchronized flight.</h1>
-          <p>PhaseSky designs and builds synchronized micro-drone systems, advancing distributed aerial intelligence through physics-driven engineering and disciplined innovation.</p>
-        </div>
+      <section class="page-hero container">
+        <p class="eyebrow">About</p>
+        <h1>Disciplined aerospace engineering for synchronized flight.</h1>
+        <p class="lede">PhaseSky designs and builds synchronized micro-drone systems, advancing distributed aerial intelligence through physics-driven engineering and disciplined innovation.</p>
       </section>
 
-      <section class="container reveal">
+      <section class="container mission reveal">
         <div class="section-header">
           <p class="eyebrow">Mission</p>
           <h2>Aligned to the physics of flight and signal.</h2>
         </div>
-        <div class="card">
+        <div class="card highlight">
           <p>PhaseSky builds synchronized aerial systems where physics, signal, and flight operate as one.</p>
           <p>Current focus: designing a custom drone from the ground up—open-source flight control, custom PCBs, and systems engineering.</p>
         </div>
       </section>
 
-      <section class="container reveal">
+      <section class="container values reveal">
         <div class="section-header">
           <p class="eyebrow">Values</p>
           <h2>Principles that keep the program on-course.</h2>
         </div>
-        <div class="simple-grid">
-          <article class="card">
+        <div class="values-grid">
+          <article class="value-card">
+            <div class="icon" aria-hidden="true">⧖</div>
             <h3>Timing discipline</h3>
             <p>Sync-first design keeps control loops, RF links, and sensor fusion aligned.</p>
           </article>
-          <article class="card">
+          <article class="value-card">
+            <div class="icon" aria-hidden="true">⌁</div>
             <h3>Signal clarity</h3>
             <p>Noise-aware electronics and telemetry traces guide every iteration.</p>
           </article>
-          <article class="card">
+          <article class="value-card">
+            <div class="icon" aria-hidden="true">△</div>
             <h3>System integrity</h3>
             <p>Integrated hardware, firmware, and airframes reduce surprises downstream.</p>
           </article>
-          <article class="card">
+          <article class="value-card">
+            <div class="icon" aria-hidden="true">◎</div>
             <h3>Transparent craft</h3>
             <p>Open-source control stack and documented processes invite audit and collaboration.</p>
           </article>
         </div>
       </section>
 
-      <section class="container reveal">
+      <section class="container era reveal">
         <div class="section-header">
           <p class="eyebrow">Era &amp; inspiration</p>
           <h2>Near-future aerospace without the noise.</h2>
         </div>
-        <div class="simple-grid">
-          <article class="card">
+        <div class="era-grid">
+          <div class="card">
             <h3>2025–2040 horizon</h3>
-            <p>Designing for modular, verifiable distributed aerial systems.</p>
-          </article>
-          <article class="card">
-            <h3>Avionics-inspired clarity</h3>
-            <p>HUD-like simplicity informs how we communicate status and risk.</p>
-          </article>
-          <article class="card">
+            <p>We design for the next two decades of distributed aerial systems—modular, verifiable, and adaptable.</p>
+          </div>
+          <div class="card">
+            <h3>Avionics-inspired UI</h3>
+            <p>HUD-like clarity and smooth phase motifs inform how we communicate progress.</p>
+          </div>
+          <div class="card">
             <h3>Engineering-first narrative</h3>
-            <p>Every artifact points to measurable work: PCBs, firmware, data, and controls research.</p>
-          </article>
+            <p>Every public artifact is anchored in measurable work: PCBs, firmware, test data, and controls research.</p>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container footer-inner">
-        <div class="brand" aria-label="PhaseSky">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 64 64" role="presentation" focusable="false">
-              <rect x="6" y="22" width="52" height="20" rx="10" fill="none" stroke="#9cacc2" stroke-width="2" />
-              <path d="M6 32h20c6 0 6 0 12 0h20" stroke="#76b7ff" stroke-width="3" fill="none" stroke-linecap="round" />
-              <circle cx="32" cy="32" r="6" fill="#76b7ff" fill-opacity="0.15" stroke="#76b7ff" stroke-width="2" />
-            </svg>
-          </span>
-          <span>PhaseSky</span>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="index.html" class="brand footer-brand" aria-label="PhaseSky home">
+            <img src="PhaseSkyLogo.png" alt="PhaseSky logo" class="brand-logo" />
+            <span class="brand-name">PhaseSky</span>
+          </a>
+          <p class="footnote">Synchronized aerial systems engineered with discipline.</p>
         </div>
         <div class="footer-links">
           <a href="about.html">About</a>
           <a href="products.html">Products</a>
           <a href="contact.html">Contact</a>
+          <a href="#" aria-label="GitHub (coming soon)">GitHub</a>
         </div>
       </div>
     </footer>
+
     <script src="main.js"></script>
   </body>
 </html>
