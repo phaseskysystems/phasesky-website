@@ -37,4 +37,3 @@ if (!prefersReducedMotion && 'IntersectionObserver' in window) {
   document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'));
 }
 
-// Drone stack diagram does not require JS beyond global interactions

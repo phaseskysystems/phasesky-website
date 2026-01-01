@@ -260,78 +260,130 @@ p {
   padding: var(--spacing-12);
 }
 
-/* version 1.5.1 */
-.build-grid {
+.build-bubble {
+  background: radial-gradient(circle at 20% 20%, rgba(110, 197, 255, 0.06), transparent 38%), var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--spacing-12);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.bubble-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+}
+
+.bubble-cta {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  padding: var(--spacing-4) var(--spacing-8);
+  border: 1px solid rgba(110, 197, 255, 0.4);
+  border-radius: 999px;
+  background: rgba(110, 197, 255, 0.06);
+}
+
+.bubble-cta:hover,
+.bubble-cta:focus-visible {
+  background: rgba(110, 197, 255, 0.1);
+}
+
+.bubble-body {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(280px, 1fr);
-  gap: var(--spacing-16);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-10);
   align-items: center;
 }
 
-.stack-diagram {
-  position: relative;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: var(--spacing-12);
-  background: var(--surface);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-10);
+.bubble-copy h2 {
+  margin-bottom: var(--spacing-6);
 }
 
-.stack-line {
-  position: absolute;
-  left: 18px;
-  top: var(--spacing-20);
-  bottom: var(--spacing-12);
-  width: 1px;
-  background: rgba(156, 172, 194, 0.18);
+.build-visual {
+  width: 100%;
+  filter: drop-shadow(0 12px 40px rgba(110, 197, 255, 0.08));
 }
 
-.stack-block {
-  position: relative;
-  padding: var(--spacing-8) var(--spacing-10) var(--spacing-8) calc(var(--spacing-12) + 12px);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text);
-  z-index: 1;
+.build-lines line {
+  stroke: rgba(110, 197, 255, 0.2);
+  stroke-width: 1;
+  stroke-dasharray: 6 8;
 }
 
-.stack-block::before {
-  content: "";
-  position: absolute;
-  left: -8px;
-  top: 50%;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1px solid rgba(156, 172, 194, 0.6);
-  background: var(--bg);
-  transform: translateY(-50%);
+.build-layer rect {
+  fill: url(#plateGradient);
+  stroke: rgba(158, 176, 200, 0.4);
+  stroke-width: 1.5;
 }
 
-.stack-block::after {
-  content: "";
-  position: absolute;
-  left: -18px;
-  top: 50%;
-  width: 18px;
-  height: 1px;
-  background: rgba(156, 172, 194, 0.2);
-  transform: translateY(-50%);
+.build-layer .edge {
+  fill: none;
+  stroke: url(#edgeGradient);
+  stroke-width: 2.6;
 }
 
-.stack-label {
+.build-layer text {
+  fill: var(--text);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
   font-weight: 600;
-  color: var(--text);
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
 
-.stack-block--highlight {
-  border-color: rgba(118, 183, 255, 0.7);
-  background: var(--accent-soft);
-  color: var(--accent);
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+.build-layer {
+  animation: floatLayer 6s ease-in-out infinite;
+}
+
+.layer-frame {
+  animation-delay: -0.5s;
+}
+
+.layer-motors {
+  animation-delay: -1.2s;
+}
+
+.layer-fc {
+  animation-delay: -1.9s;
+}
+
+.layer-imu {
+  animation-delay: -2.6s;
+}
+
+.layer-radio {
+  animation-delay: -3.3s;
+}
+
+.layer-power {
+  animation-delay: -4s;
+}
+
+@keyframes floatLayer {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .build-layer {
+    animation: none;
+  }
+
+  .build-visual {
+    filter: none;
+  }
 }
 
 .stack-block--highlight .stack-label {
