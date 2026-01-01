@@ -184,6 +184,13 @@ main {
   gap: var(--spacing-sm);
 }
 
+/* Ensure long titles or descriptions wrap cleanly inside feature and product cards */
+.feature p,
+.product-card p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .feature-icon {
   width: 36px;
   height: 36px;
