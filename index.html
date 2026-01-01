@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhaseSky — Synchronized Aerial Systems</title>
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Optional: Use Inter for a slightly more modern look (will fall back to system fonts) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <img src="assets/logo.png" alt="PhaseSky logo" />
+        </a>
+        <nav>
+          <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <!-- Hero Bubble -->
+      <section class="bubble hero">
+        <div class="container">
+          <h1>Synchronized Aerial Systems</h1>
+          <p>
+            Designing a custom drone from the ground up. Open‑source flight
+            control, custom PCBs, and systems engineering at the forefront of
+            autonomous aviation.
+          </p>
+          <a href="products.html" class="cta-button">Explore Hardware</a>
+        </div>
+      </section>
+
+      <!-- Features / Explainers -->
+      <section class="bubble">
+        <div class="container">
+          <h2 class="text-center">What Makes PhaseSky Different</h2>
+          <div class="features-grid mt-md">
+            <!-- Built From the Ground Up -->
+            <div class="feature">
+              <svg
+                class="feature-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <rect x="4" y="17" width="16" height="3" rx="1.5" ry="1.5" />
+                <rect x="6" y="12" width="12" height="3" rx="1.5" ry="1.5" />
+                <rect x="8" y="7" width="8" height="3" rx="1.5" ry="1.5" />
+              </svg>
+              <h3>Built From the Ground Up</h3>
+              <p>
+                Custom flight controller PCB, firmware, and integration—designed as
+                one system from first principles.
+              </p>
+            </div>
+            <!-- Open Source Where It Matters -->
+            <div class="feature">
+              <svg
+                class="feature-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M12 2C7.031 2 2.72 5.514 2.09 10.352c-.046.34.175.648.5.648h2.433a.663.663 0 00.65-.55C6.309 7.152 8.937 5 12 5c3.314 0 6 2.686 6 6 0 2.876-2.026 5.283-4.737 5.87-.307.07-.511.348-.511.663v2.417c0 .423.392.734.802.639 5.042-1.158 8.445-6.143 7.341-11.286C21.577 6.218 17.188 2 12 2z"
+                />
+              </svg>
+              <h3>Open Source Where It Matters</h3>
+              <p>
+                Our flight software and documentation are open. Hardware
+                blueprints are released as they mature, inviting collaboration.
+              </p>
+            </div>
+            <!-- Engineering‑First -->
+            <div class="feature">
+              <svg
+                class="feature-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <rect x="4" y="4" width="16" height="16" rx="1" ry="1" />
+                <line x1="4" y1="9" x2="20" y2="9" />
+                <line x1="4" y1="15" x2="20" y2="15" />
+                <line x1="10" y1="4" x2="10" y2="20" />
+                <line x1="14" y1="4" x2="14" y2="20" />
+              </svg>
+              <h3>Engineering‑First</h3>
+              <p>
+                Real constraints, disciplined testing, and iterative refinement
+                drive our work—not hype.
+              </p>
+            </div>
+            <!-- Mesh Direction (Future) -->
+            <div class="feature">
+              <svg
+                class="feature-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="6" cy="6" r="2" />
+                <circle cx="18" cy="6" r="2" />
+                <circle cx="6" cy="18" r="2" />
+                <circle cx="18" cy="18" r="2" />
+                <line x1="8" y1="6" x2="16" y2="6" />
+                <line x1="6" y1="8" x2="6" y2="16" />
+                <line x1="8" y1="18" x2="16" y2="18" />
+                <line x1="18" y1="8" x2="18" y2="16" />
+              </svg>
+              <h3>Mesh Direction (Future)</h3>
+              <p>
+                Today: one drone and one PCB. Tomorrow: coordinated, mesh‑capable
+                aerial systems.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What We're Building Now -->
+      <section class="bubble">
+        <div class="container">
+          <h2 class="text-center">What We&#8217;re Building Now</h2>
+          <p class="text-center mt-sm">
+            A custom micro‑drone platform—open‑source flight stack and a
+            purpose‑built flight controller PCB with integrated ESCs, radio,
+            and sensors powering motors and battery.
+          </p>
+          <div class="stack-container">
+            <div class="drone-visual">
+              <!-- Enhanced drone illustration: diagonal arms with propellers and a clearly defined integrated PCB.
+                   Each layer animates gently to assemble the system. All subsystems (FC/ESC/Radio/Sensors) are shown
+                   as part of a single board to underscore integration. -->
+              <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+                <!-- Layer 1: arms and props -->
+                <g class="drone-layer" style="animation-delay: 0.05s">
+                  <!-- four diagonal arms -->
+                  <line x1="140" y1="140" x2="50" y2="40" stroke="var(--color-muted)" stroke-width="6" stroke-linecap="round" />
+                  <line x1="140" y1="140" x2="230" y2="40" stroke="var(--color-muted)" stroke-width="6" stroke-linecap="round" />
+                  <line x1="140" y1="140" x2="50" y2="240" stroke="var(--color-muted)" stroke-width="6" stroke-linecap="round" />
+                  <line x1="140" y1="140" x2="230" y2="240" stroke="var(--color-muted)" stroke-width="6" stroke-linecap="round" />
+                  <!-- propeller hubs -->
+                  <circle cx="50" cy="40" r="10" fill="var(--color-muted)" />
+                  <circle cx="230" cy="40" r="10" fill="var(--color-muted)" />
+                  <circle cx="50" cy="240" r="10" fill="var(--color-muted)" />
+                  <circle cx="230" cy="240" r="10" fill="var(--color-muted)" />
+                  <!-- blades on each propeller: simple cross -->
+                  <g stroke="var(--color-muted)" stroke-width="1.4">
+                    <line x1="40" y1="40" x2="60" y2="40" />
+                    <line x1="50" y1="30" x2="50" y2="50" />
+                    <line x1="220" y1="40" x2="240" y2="40" />
+                    <line x1="230" y1="30" x2="230" y2="50" />
+                    <line x1="40" y1="240" x2="60" y2="240" />
+                    <line x1="50" y1="230" x2="50" y2="250" />
+                    <line x1="220" y1="240" x2="240" y2="240" />
+                    <line x1="230" y1="230" x2="230" y2="250" />
+                  </g>
+                </g>
+
+                <!-- Layer 2: central PCB with integrated subsystems -->
+                <g class="drone-layer" style="animation-delay: 0.20s">
+                  <!-- board background -->
+                  <rect x="95" y="115" width="90" height="50" rx="8" ry="8" fill="var(--color-blue)" />
+                  <!-- subsystem panels: all part of one board -->
+                  <rect x="102" y="122" width="16" height="16" rx="2" ry="2" fill="var(--color-bg)" />
+                  <rect x="122" y="122" width="16" height="16" rx="2" ry="2" fill="var(--color-bg)" />
+                  <rect x="142" y="122" width="16" height="16" rx="2" ry="2" fill="var(--color-bg)" />
+                  <rect x="162" y="122" width="16" height="16" rx="2" ry="2" fill="var(--color-bg)" />
+                  <!-- subsystem labels -->
+                  <text x="110" y="133" text-anchor="middle" fill="var(--color-blue)" font-size="4">FC</text>
+                  <text x="130" y="133" text-anchor="middle" fill="var(--color-blue)" font-size="4">ESC</text>
+                  <text x="150" y="133" text-anchor="middle" fill="var(--color-blue)" font-size="4">Radio</text>
+                  <text x="170" y="133" text-anchor="middle" fill="var(--color-blue)" font-size="4">Sensors</text>
+                  <!-- board title -->
+                  <text x="140" y="156" text-anchor="middle" fill="var(--color-bg)" font-size="8">PCB v1</text>
+                </g>
+
+                <!-- Layer 3: wiring connecting board to arms (thin dashed lines) -->
+                <g class="drone-layer" style="animation-delay: 0.35s">
+                  <!-- top-left wires -->
+                  <polyline points="110,131 80,90 50,40" stroke="var(--color-muted)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+                  <polyline points="130,131 170,90 230,40" stroke="var(--color-muted)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+                  <!-- bottom wires -->
+                  <polyline points="150,131 170,190 230,240" stroke="var(--color-muted)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+                  <polyline points="170,131 110,190 50,240" stroke="var(--color-muted)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+                </g>
+
+                <!-- Layer 4: battery and labels -->
+                <g class="drone-layer" style="animation-delay: 0.45s">
+                  <rect x="115" y="180" width="50" height="16" rx="3" ry="3" fill="var(--color-muted)" />
+                  <text x="140" y="191" text-anchor="middle" fill="var(--color-primary)" font-size="7">Battery</text>
+                </g>
+
+                <!-- Layer 5: descriptive text labels for arms and frame -->
+                <g class="drone-layer" style="animation-delay: 0.55s">
+                  <text x="140" y="24" text-anchor="middle" fill="var(--color-primary)" font-size="8">Arms &amp; Propellers</text>
+                  <text x="140" y="256" text-anchor="middle" fill="var(--color-primary)" font-size="8">Frame</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <p class="text-center mt-sm" style="font-size: 0.9rem; color: var(--color-secondary)">
+            Our core board integrates flight control, ESCs, radio and sensors—forming the heart of the drone.
+          </p>
+        </div>
+      </section>
+
+      <!-- Program Status -->
+      <section class="bubble">
+        <div class="container">
+          <h2 class="text-center">Program Status</h2>
+          <!-- Horizontal timeline of program phases -->
+          <div class="timeline mt-md">
+            <div class="timeline-item available">
+              <div class="node"></div>
+              <div class="timeline-content">
+                <h4>PCB v1</h4>
+                <p>Baseline flight controller board with core features.</p>
+                <span class="status-text">Available (Pre‑Order)</span>
+              </div>
+            </div>
+            <div class="timeline-item coming-soon">
+              <div class="node"></div>
+              <div class="timeline-content">
+                <h4>Drone v1</h4>
+                <p>First integrated airframe built around PCB v1.</p>
+                <span class="status-text">Coming Soon</span>
+              </div>
+            </div>
+            <div class="timeline-item in-development">
+              <div class="node"></div>
+              <div class="timeline-content">
+                <h4>PCB v2</h4>
+                <p>Refined electronics for efficiency and reliability.</p>
+                <span class="status-text">In Development</span>
+              </div>
+            </div>
+            <div class="timeline-item in-development">
+              <div class="node"></div>
+              <div class="timeline-content">
+                <h4>Drone v2</h4>
+                <p>Improved endurance and performance over v1.</p>
+                <span class="status-text">In Development</span>
+              </div>
+            </div>
+            <div class="timeline-item planned">
+              <div class="node"></div>
+              <div class="timeline-content">
+                <h4>Custom Controller</h4>
+                <p>Purpose‑built PhaseSky command interface.</p>
+                <span class="status-text">Planned</span>
+              </div>
+            </div>
+            <div class="timeline-item planned">
+              <div class="node"></div>
+              <div class="timeline-content">
+                <h4>PCB v3 — Mesh Capable</h4>
+                <p>Communication primitives for distributed flight.</p>
+                <span class="status-text">Planned</span>
+              </div>
+            </div>
+            <div class="timeline-item planned">
+              <div class="node"></div>
+              <div class="timeline-content">
+                <h4>Drone v3 — Mesh Capable</h4>
+                <p>Coordinated multi‑unit flight platform.</p>
+                <span class="status-text">Planned</span>
+              </div>
+            </div>
+            <div class="timeline-item planned">
+              <div class="node"></div>
+              <div class="timeline-content">
+                <h4>Mass Programmable Controller</h4>
+                <p>Command and deploy multiple drones with a single program.</p>
+                <span class="status-text">Planned</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Open Source Section -->
+      <section class="bubble">
+        <div class="container">
+          <h2 class="text-center">Open Source Philosophy</h2>
+          <p class="mt-sm" style="text-align: center">
+            PhaseSky believes in openness. Our flight control software and
+            documentation are released for anyone to study, adapt and improve.
+            Hardware designs are shared as they mature, enabling community
+            collaboration and trust.
+          </p>
+          <p class="text-center mt-sm">
+            <a href="https://github.com/phasesky" target="_blank" rel="noopener" class="cta-button">View the Code on GitHub</a>
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <p>&copy; 2026 PhaseSky. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Animation Activation for Drone Stack -->
+    <script>
+      // Add animation delays for each layer based on index
+      document.querySelectorAll('.drone-layer').forEach((layer, index) => {
+        layer.style.animation = `stack 0.8s ease forwards`;
+        layer.style.animationDelay = `${0.1 * index}s`;
+      });
+    </script>
+  </body>
+</html>
