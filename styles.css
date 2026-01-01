@@ -190,7 +190,7 @@ p {
   padding: 4px;
   border-radius: 10px;
   border: 1px solid var(--line);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  background: var(--surface);
 }
 
 .brand-logo {
@@ -254,12 +254,13 @@ p {
 }
 
 .hero-visual {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-12);
 }
 
+/* version 1.5.1 */
 .build-grid {
   display: grid;
   grid-template-columns: minmax(320px, 1fr) minmax(280px, 1fr);
@@ -272,25 +273,10 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-12);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-10);
-}
-
-.stack-title {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  padding-left: calc(var(--spacing-12) + 12px);
-  position: relative;
-  z-index: 1;
-}
-
-.stack-note {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.9rem;
 }
 
 .stack-line {
@@ -424,7 +410,7 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-12);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface);
 }
 
 .status-list {
@@ -440,7 +426,7 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-10);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface);
 }
 
 .status-head {
@@ -513,7 +499,7 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-10);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface);
 }
 
 .contact-grid {

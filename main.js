@@ -1,3 +1,4 @@
+// version 1.5.1
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.getElementById('nav-menu');
 
