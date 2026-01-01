@@ -11,6 +11,7 @@
   --spacing-4: 0.5rem;
   --spacing-6: 0.75rem;
   --spacing-8: 1rem;
+  --spacing-10: 1.25rem;
   --spacing-12: 1.5rem;
   --spacing-16: 2rem;
   --spacing-20: 2.5rem;
@@ -580,7 +581,11 @@ p {
 }
 
 .not-found {
-  min-height: 100vh;
+  background: var(--bg);
+}
+
+.not-found-content {
+  min-height: 70vh;
   display: grid;
   place-items: center;
   text-align: center;
