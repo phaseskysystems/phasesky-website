@@ -257,17 +257,106 @@ p {
   padding: var(--spacing-12);
 }
 
-.signal-header {
-  display: flex;
+.build-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(260px, 1fr);
+  gap: var(--spacing-12);
   align-items: center;
-  justify-content: space-between;
-  color: var(--muted);
-  font-weight: 600;
 }
 
-.signal-footnote {
-  font-size: 0.9rem;
+.stack-diagram {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--spacing-12);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.stack-line {
+  position: absolute;
+  left: 18px;
+  top: var(--spacing-12);
+  bottom: var(--spacing-12);
+  width: 1px;
+  background: var(--line);
+}
+
+.stack-block {
+  position: relative;
+  padding: var(--spacing-8) var(--spacing-10) var(--spacing-8) calc(var(--spacing-12) + 12px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+}
+
+.stack-block::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  background: var(--bg);
+  transform: translateY(-50%);
+}
+
+.stack-label {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.stack-block--highlight {
+  border-color: rgba(118, 183, 255, 0.7);
+  background: var(--accent-soft);
+  color: var(--accent);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stack-block--highlight .stack-label {
+  color: var(--accent);
+}
+
+.stack-block--highlight:focus-visible,
+.stack-block--highlight:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(118, 183, 255, 0.35);
+}
+
+.stack-tooltip {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--spacing-6);
+  padding: 2px var(--spacing-6);
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.85rem;
+  background: rgba(118, 183, 255, 0.12);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stack-tooltip {
+    opacity: 0;
+    transform: translateY(3px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .stack-block--highlight:hover .stack-tooltip,
+  .stack-block--highlight:focus-visible .stack-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.build-copy .muted-note {
   color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .hero-motif {
@@ -476,6 +565,18 @@ p {
 
   .nav-toggle {
     display: inline-flex;
+  }
+
+  .build-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stack-diagram {
+    order: 1;
+  }
+
+  .build-copy {
+    order: 2;
   }
 }
 

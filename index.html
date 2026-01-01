@@ -69,12 +69,41 @@
           <p><strong>Open source:</strong> Flight control and documentation. <strong>Hardware:</strong> Sold as releases mature.</p>
         </div>
         <div class="hero-visual reveal">
-          <div class="signal-header">
-            <span>Signal alignment</span>
-            <span class="badge success">Live</span>
+          <div class="build-grid">
+            <div class="stack-diagram" aria-label="Simplified drone stack diagram">
+              <div class="stack-line" aria-hidden="true"></div>
+              <div class="stack-block">
+                <span class="stack-label">Frame</span>
+              </div>
+              <div class="stack-block">
+                <span class="stack-label">Motors / ESC</span>
+              </div>
+              <div class="stack-block stack-block--highlight" tabindex="0">
+                <span class="stack-label">Flight Controller (PCB v1)</span>
+                <span class="stack-tooltip">Custom Flight Controller (PCB v1)</span>
+              </div>
+              <div class="stack-block">
+                <span class="stack-label">Sensors (IMU)</span>
+              </div>
+              <div class="stack-block">
+                <span class="stack-label">Radio link</span>
+              </div>
+              <div class="stack-block">
+                <span class="stack-label">Battery / Power</span>
+              </div>
+            </div>
+            <div class="build-copy">
+              <p class="eyebrow">What we’re building now</p>
+              <h2>Custom micro-drone platform</h2>
+              <p>
+                A custom micro-drone platform — with an open-source flight stack and a purpose-built flight controller PCB.
+              </p>
+              <p class="muted-note">
+                Flight software & documentation: open-source. Hardware (PCBs): released as it matures.
+              </p>
+              <a class="button" href="products.html">See the build roadmap</a>
+            </div>
           </div>
-          <canvas id="signalCanvas" width="520" height="220" aria-label="Signal waveform visualization"></canvas>
-          <p class="signal-footnote">Waveform with sync point. Pauses when reduced motion is enabled.</p>
         </div>
       </section>
 
