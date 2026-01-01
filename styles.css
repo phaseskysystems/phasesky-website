@@ -322,27 +322,130 @@ p {
   position: relative;
 }
 
-.signal-shell {
-  background: radial-gradient(circle at 20% 20%, rgba(110, 197, 255, 0.04), transparent 35%), var(--panel);
+.build-bubble {
+  background: radial-gradient(circle at 20% 20%, rgba(110, 197, 255, 0.06), transparent 38%), var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--spacing-12);
   box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
 }
 
-.signal-header {
+.bubble-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--muted);
-  font-weight: 600;
-  margin-bottom: var(--spacing-8);
+  gap: var(--spacing-8);
 }
 
-.signal-footnote {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-top: var(--spacing-6);
+.bubble-cta {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  padding: var(--spacing-4) var(--spacing-8);
+  border: 1px solid rgba(110, 197, 255, 0.4);
+  border-radius: 999px;
+  background: rgba(110, 197, 255, 0.06);
+}
+
+.bubble-cta:hover,
+.bubble-cta:focus-visible {
+  background: rgba(110, 197, 255, 0.1);
+}
+
+.bubble-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-10);
+  align-items: center;
+}
+
+.bubble-copy h2 {
+  margin-bottom: var(--spacing-6);
+}
+
+.build-visual {
+  width: 100%;
+  filter: drop-shadow(0 12px 40px rgba(110, 197, 255, 0.08));
+}
+
+.build-lines line {
+  stroke: rgba(110, 197, 255, 0.2);
+  stroke-width: 1;
+  stroke-dasharray: 6 8;
+}
+
+.build-layer rect {
+  fill: url(#plateGradient);
+  stroke: rgba(158, 176, 200, 0.4);
+  stroke-width: 1.5;
+}
+
+.build-layer .edge {
+  fill: none;
+  stroke: url(#edgeGradient);
+  stroke-width: 2.6;
+}
+
+.build-layer text {
+  fill: var(--text);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.build-layer {
+  animation: floatLayer 6s ease-in-out infinite;
+}
+
+.layer-frame {
+  animation-delay: -0.5s;
+}
+
+.layer-motors {
+  animation-delay: -1.2s;
+}
+
+.layer-fc {
+  animation-delay: -1.9s;
+}
+
+.layer-imu {
+  animation-delay: -2.6s;
+}
+
+.layer-radio {
+  animation-delay: -3.3s;
+}
+
+.layer-power {
+  animation-delay: -4s;
+}
+
+@keyframes floatLayer {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .build-layer {
+    animation: none;
+  }
+
+  .build-visual {
+    filter: none;
+  }
 }
 
 .hero-copy .actions {

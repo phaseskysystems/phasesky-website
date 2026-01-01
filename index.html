@@ -60,13 +60,70 @@
           </div>
         </div>
         <div class="hero-visual reveal">
-          <div class="signal-shell">
-            <div class="signal-header">
-              <p>Phase alignment</p>
-              <span class="badge">Live</span>
+          <div class="build-bubble" role="img" aria-label="Stacked drone layers: Frame, Motors and ESC, Flight Controller PCB v1, Sensors IMU, Radio link, Battery and Power.">
+            <div class="bubble-head">
+              <p class="eyebrow">What we're building now</p>
+              <a class="bubble-cta" href="products.html">See the build sheet</a>
             </div>
-            <canvas id="signalCanvas" width="560" height="260" aria-label="Signal waveform visualization"></canvas>
-            <p class="signal-footnote">Light-blue sync point, silver waveform. Pauses for reduced motion.</p>
+            <div class="bubble-body">
+              <div class="bubble-copy">
+                <h2>Micro drone reference stack.</h2>
+                <p>
+                  Layered to stay synchronized: a disciplined frame, motor drive, flight controller, IMU sensors,
+                  radio link, and power system.
+                </p>
+              </div>
+              <svg class="build-visual" viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="plateGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#6ec5ff" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#7da9ff" stop-opacity="0.08" />
+                  </linearGradient>
+                  <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#6ec5ff" stop-opacity="0.5" />
+                    <stop offset="100%" stop-color="#c2d5ff" stop-opacity="0.3" />
+                  </linearGradient>
+                </defs>
+                <g class="build-lines">
+                  <line x1="140" y1="70" x2="380" y2="70" />
+                  <line x1="120" y1="120" x2="400" y2="120" />
+                  <line x1="110" y1="170" x2="410" y2="170" />
+                  <line x1="100" y1="220" x2="420" y2="220" />
+                  <line x1="115" y1="270" x2="405" y2="270" />
+                  <line x1="140" y1="310" x2="380" y2="310" />
+                </g>
+                <g class="build-layer layer-frame">
+                  <rect x="150" y="40" width="220" height="52" rx="12" />
+                  <rect class="edge" x="160" y="48" width="200" height="36" rx="10" />
+                  <text x="260" y="72">Frame</text>
+                </g>
+                <g class="build-layer layer-motors">
+                  <rect x="130" y="90" width="260" height="52" rx="12" />
+                  <rect class="edge" x="142" y="98" width="236" height="36" rx="10" />
+                  <text x="260" y="122">Motors / ESC</text>
+                </g>
+                <g class="build-layer layer-fc">
+                  <rect x="120" y="140" width="280" height="52" rx="12" />
+                  <rect class="edge" x="132" y="148" width="256" height="36" rx="10" />
+                  <text x="260" y="172">Flight Controller (PCB v1)</text>
+                </g>
+                <g class="build-layer layer-imu">
+                  <rect x="110" y="190" width="300" height="52" rx="12" />
+                  <rect class="edge" x="124" y="198" width="272" height="36" rx="10" />
+                  <text x="260" y="222">Sensors (IMU)</text>
+                </g>
+                <g class="build-layer layer-radio">
+                  <rect x="125" y="240" width="270" height="52" rx="12" />
+                  <rect class="edge" x="136" y="248" width="248" height="36" rx="10" />
+                  <text x="260" y="272">Radio link</text>
+                </g>
+                <g class="build-layer layer-power">
+                  <rect x="150" y="280" width="220" height="42" rx="12" />
+                  <rect class="edge" x="162" y="288" width="196" height="28" rx="10" />
+                  <text x="260" y="310">Battery / Power</text>
+                </g>
+              </svg>
+            </div>
           </div>
         </div>
         <div class="hero-accent" aria-hidden="true"></div>
