@@ -3,67 +3,246 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PhaseSky builds synchronized aerial systems with open-source flight control, custom PCBs, and disciplined aerospace engineering." />
+    <meta property="og:title" content="PhaseSky — Synchronized Aerial Systems" />
+    <meta property="og:description" content="Engineering-first micro-drone systems with open-source flight control and custom hardware." />
+    <meta property="og:image" content="assets/logo.png" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <title>PhaseSky — Synchronized Aerial Systems</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <header>
-      <div class="container header-container">
-        <a href="index.html" class="logo">
-          <img src="assets/logo.png" alt="PhaseSky logo" />
+  <body data-page="home">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="brand" aria-label="PhaseSky home">
+          <img src="assets/logo.png" alt="PhaseSky logo" class="brand-logo" />
+          <span class="brand-name">PhaseSky</span>
         </a>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
+        <nav class="site-nav" aria-label="Main">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+          <ul id="nav-menu">
+            <li><a class="nav-link active" href="index.html">Home</a></li>
+            <li><a class="nav-link" href="about.html">About</a></li>
+            <li><a class="nav-link" href="products.html">Products</a></li>
+            <li><a class="nav-link" href="contact.html">Contact</a></li>
+            <li><a class="nav-link ghost" href="#" aria-label="GitHub (coming soon)">GitHub</a></li>
           </ul>
         </nav>
       </div>
     </header>
-    <main>
-      <section class="hero">
-        <div class="container">
-          <h1>Synchronized Aerial Systems</h1>
-          <p>
-            Designing a custom drone from the ground up. Open‑source flight control,
-            custom PCBs, and systems engineering at the forefront of autonomous
-            aviation.
+
+    <main id="main">
+      <section class="hero container split">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Synchronized Aerial Systems</p>
+          <h1>Where physics, signal, and flight operate as one.</h1>
+          <p class="lede">
+            Designing a custom drone from the ground up—open-source flight control, custom PCBs, and disciplined systems engineering.
           </p>
-          <a href="products.html" class="cta-button">Explore Hardware</a>
+          <div class="actions">
+            <a class="button" href="products.html">View the roadmap</a>
+            <a class="button ghost" href="contact.html">Talk with engineering</a>
+          </div>
+          <div class="hero-meta">
+            <div>
+              <span class="label">Open source</span>
+              <p>Flight control + documentation</p>
+            </div>
+            <div>
+              <span class="label">Hardware</span>
+              <p>Sold as releases mature</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="signal-shell">
+            <div class="signal-header">
+              <p>Phase alignment</p>
+              <span class="badge">Live</span>
+            </div>
+            <canvas id="signalCanvas" width="560" height="260" aria-label="Signal waveform visualization"></canvas>
+            <p class="signal-footnote">Light-blue sync point, silver waveform. Pauses for reduced motion.</p>
+          </div>
+        </div>
+        <div class="hero-accent" aria-hidden="true"></div>
+      </section>
+
+      <section class="container focus reveal">
+        <div class="section-header">
+          <p class="eyebrow">Current focus</p>
+          <h2>Disciplined engineering for synchronized micro-drone fleets.</h2>
+        </div>
+        <div class="focus-grid">
+          <article class="card">
+            <h3>Physics-driven architecture</h3>
+            <p>Signal timing, sensor fusion, and control loops designed as a single system.</p>
+          </article>
+          <article class="card">
+            <h3>Custom electronics</h3>
+            <p>Purpose-built PCBs with EMI-aware layout, mesh-ready links, and deterministic timing.</p>
+          </article>
+          <article class="card">
+            <h3>Open flight control</h3>
+            <p>Open-source stack for flight logic, telemetry, and documentation to enable collaboration.</p>
+          </article>
         </div>
       </section>
-      <section class="features">
-        <div class="container features-grid">
-          <div class="feature">
-            <h2>Physics‑Driven Design</h2>
-            <p>
-              Every component is crafted with precision and discipline. From
-              electrical layout to flight dynamics, engineering is our core.
-            </p>
+
+      <section class="container status reveal">
+        <div class="section-header">
+          <p class="eyebrow">Program status</p>
+          <h2>Progress across hardware and control.</h2>
+        </div>
+        <div class="status-grid">
+          <div class="status-card">
+            <div class="status-head">
+              <h3>PCB v1</h3><span class="badge success">Available</span>
+            </div>
+            <p>Baseline flight controller board with stable power and sensor stack.</p>
+            <a href="products.html" class="inline-link">View on Products</a>
           </div>
-          <div class="feature">
-            <h2>Open Source &amp; Transparent</h2>
-            <p>
-              Our flight control stack is open for the community. Collaborate,
-              contribute, and build upon robust foundations.
-            </p>
+          <div class="status-card">
+            <div class="status-head">
+              <h3>Drone v1</h3><span class="badge info">In development</span>
+            </div>
+            <p>Reference airframe integrating PCB v1 for controlled test flights.</p>
+            <a href="products.html" class="inline-link">View on Products</a>
           </div>
-          <div class="feature">
-            <h2>Systems, Not Products</h2>
-            <p>
-              PhaseSky develops complete systems: airframe, electronics,
-              communication, and control. Integrated and scalable.
-            </p>
+          <div class="status-card">
+            <div class="status-head">
+              <h3>PCB v2</h3><span class="badge info">In development</span>
+            </div>
+            <p>Latency-optimized board with improved RF discipline and sync taps.</p>
+            <a href="products.html" class="inline-link">View on Products</a>
+          </div>
+          <div class="status-card">
+            <div class="status-head">
+              <h3>Drone v2</h3><span class="badge muted">Planned</span>
+            </div>
+            <p>Higher-thrust platform validating multi-node timing and mesh links.</p>
+            <a href="products.html" class="inline-link">View on Products</a>
+          </div>
+          <div class="status-card">
+            <div class="status-head">
+              <h3>Controller</h3><span class="badge muted">Planned</span>
+            </div>
+            <p>Ground unit with deterministic command latency and secure mesh handoff.</p>
+            <a href="products.html" class="inline-link">View on Products</a>
+          </div>
+          <div class="status-card">
+            <div class="status-head">
+              <h3>PCB v3 Mesh</h3><span class="badge upcoming">Coming soon</span>
+            </div>
+            <p>Mesh-ready control board built for distributed phase alignment.</p>
+            <a href="products.html" class="inline-link">View on Products</a>
+          </div>
+          <div class="status-card">
+            <div class="status-head">
+              <h3>Drone v3 Mesh</h3><span class="badge muted">Planned</span>
+            </div>
+            <p>Cooperative flight testbed demonstrating synchronized aerial swarms.</p>
+            <a href="products.html" class="inline-link">View on Products</a>
+          </div>
+          <div class="status-card">
+            <div class="status-head">
+              <h3>Mass Programmable Controller</h3><span class="badge muted">Planned</span>
+            </div>
+            <p>Operator interface built for fleet-scale programming and monitoring.</p>
+            <a href="products.html" class="inline-link">View on Products</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="container open-source reveal">
+        <div class="section-header">
+          <p class="eyebrow">Open source</p>
+          <h2>Transparent control stack with disciplined documentation.</h2>
+        </div>
+        <div class="open-grid">
+          <div class="card">
+            <h3>Flight control + docs</h3>
+            <p>Core control logic, telemetry pipeline, and build instructions remain open for review and contribution.</p>
+            <a class="inline-link" href="#" aria-label="GitHub (coming soon)">GitHub (coming soon)</a>
+          </div>
+          <div class="card">
+            <h3>Hardware releases</h3>
+            <p>PCBs ship as they mature. Select design details will publish after validation to keep reliability first.</p>
+          </div>
+          <div class="card">
+            <h3>Collaboration</h3>
+            <p>We welcome disciplined contributors in controls, RF, PCB layout, and documentation to accelerate the roadmap.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="container process reveal">
+        <div class="section-header">
+          <p class="eyebrow">Engineering story</p>
+          <h2>Building synchronized flight through deliberate phases.</h2>
+        </div>
+        <div class="process-grid">
+          <article class="process-item">
+            <div class="process-icon" aria-hidden="true">⟳</div>
+            <div>
+              <h3>Phase progression</h3>
+              <p>Every build is a step in phase—measurable improvements in timing, EMI discipline, and controllability.</p>
+            </div>
+          </article>
+          <article class="process-item">
+            <div class="process-icon" aria-hidden="true">⚙</div>
+            <div>
+              <h3>Hardware + software symmetry</h3>
+              <p>Electronics, firmware, and flight dynamics are designed together to avoid surprises downstream.</p>
+            </div>
+          </article>
+          <article class="process-item">
+            <div class="process-icon" aria-hidden="true">☍</div>
+            <div>
+              <h3>Signal-first testing</h3>
+              <p>Instrumentation, sync markers, and telemetry traces guide every lab session before field deployment.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta container reveal">
+        <div class="cta-card">
+          <div>
+            <p class="eyebrow">Roadmap</p>
+            <h2>See how the program advances.</h2>
+            <p>Review timelines for PCB and airframe milestones, open-source scope, and what ships next.</p>
+          </div>
+          <div class="actions">
+            <a class="button" href="products.html">View Products</a>
+            <a class="button ghost" href="contact.html">Contact</a>
           </div>
         </div>
       </section>
     </main>
-    <footer>
-      <div class="container footer-container">
-        <p>&copy; 2025 PhaseSky. All rights reserved.</p>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="index.html" class="brand footer-brand" aria-label="PhaseSky home">
+            <img src="assets/logo.png" alt="PhaseSky logo" class="brand-logo" />
+            <span class="brand-name">PhaseSky</span>
+          </a>
+          <p class="footnote">Synchronized aerial systems engineered with discipline.</p>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="products.html">Products</a>
+          <a href="contact.html">Contact</a>
+          <a href="#" aria-label="GitHub (coming soon)">GitHub</a>
+        </div>
       </div>
     </footer>
+
+    <script src="main.js"></script>
   </body>
 </html>
