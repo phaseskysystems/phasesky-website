@@ -1,7 +1,7 @@
 :root {
   --bg: #050910;
-  --surface: #0c111a;
-  --line: #1a2433;
+  --surface: #0a0f18;
+  --line: #141b28;
   --line-strong: #243247;
   --text: #e6edf5;
   --muted: #9cacc2;
@@ -52,7 +52,7 @@ main {
 }
 
 .container {
-  width: min(1180px, 94vw);
+  width: min(1140px, 93vw);
   margin: 0 auto;
   padding: var(--spacing-24) 0;
 }
@@ -185,17 +185,18 @@ p {
 
 .brand-mark {
   display: inline-flex;
-  width: 38px;
-  height: 38px;
-  padding: 6px;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
   border-radius: 10px;
   border: 1px solid var(--line);
-  background: var(--surface);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
 }
 
-.brand-mark svg {
+.brand-logo {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
 .site-nav ul {
@@ -253,11 +254,10 @@ p {
 }
 
 .hero-visual {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-12);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
 }
 
 .build-grid {
@@ -272,23 +272,10 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-12);
-  background: radial-gradient(circle at 20% 10%, rgba(118, 183, 255, 0.06), transparent 28%),
-    linear-gradient(180deg, rgba(12, 17, 26, 0.9), rgba(8, 12, 20, 0.95));
+  background: rgba(255, 255, 255, 0.02);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-10);
-  overflow: hidden;
-}
-
-.stack-diagram::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(26, 36, 51, 0.35) 1px, transparent 1px) repeat-x,
-    linear-gradient(180deg, rgba(26, 36, 51, 0.35) 1px, transparent 1px) repeat-y;
-  background-size: 120px 120px;
-  opacity: 0.4;
-  pointer-events: none;
 }
 
 .stack-title {
@@ -311,9 +298,8 @@ p {
   left: 18px;
   top: var(--spacing-20);
   bottom: var(--spacing-12);
-  width: 2px;
-  background: linear-gradient(180deg, var(--accent) 0%, var(--line-strong) 55%);
-  opacity: 0.9;
+  width: 1px;
+  background: rgba(156, 172, 194, 0.18);
 }
 
 .stack-block {
@@ -334,7 +320,7 @@ p {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 1px solid var(--muted);
+  border: 1px solid rgba(156, 172, 194, 0.6);
   background: var(--bg);
   transform: translateY(-50%);
 }
@@ -346,7 +332,7 @@ p {
   top: 50%;
   width: 18px;
   height: 1px;
-  background: var(--line);
+  background: rgba(156, 172, 194, 0.2);
   transform: translateY(-50%);
 }
 
@@ -368,7 +354,7 @@ p {
 
 .stack-block--highlight::before {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(118, 183, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(118, 183, 255, 0.08);
 }
 
 .stack-block--highlight::after {
@@ -378,7 +364,7 @@ p {
 .stack-block--highlight:focus-visible,
 .stack-block--highlight:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(118, 183, 255, 0.35);
+  box-shadow: 0 0 0 1px rgba(118, 183, 255, 0.28);
 }
 
 .stack-tooltip {
@@ -407,6 +393,12 @@ p {
   }
 }
 
+.stack-caption {
+  color: var(--muted);
+  margin: var(--spacing-6) 0 0;
+  font-size: 0.9rem;
+}
+
 .build-copy .muted-note {
   color: var(--muted);
   font-size: 0.95rem;
@@ -432,7 +424,7 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-12);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .status-list {
@@ -448,7 +440,7 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-10);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .status-head {
@@ -521,7 +513,7 @@ p {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--spacing-10);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .contact-grid {
@@ -537,7 +529,7 @@ p {
 
 .contact-form input,
 .contact-form textarea {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: var(--spacing-8);
