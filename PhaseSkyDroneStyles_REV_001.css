@@ -1,0 +1,210 @@
+/* PhaseSky Drone visualization styles (REV_001) */
+
+.phasesky-drone {
+  margin-top: 1.5rem;
+  background: radial-gradient(circle at 50% 30%, rgba(113, 208, 255, 0.08), rgba(113, 208, 255, 0)),
+    linear-gradient(180deg, rgba(6, 8, 12, 0.92), rgba(6, 8, 12, 0.72));
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem 1rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.26);
+  isolation: isolate;
+  cursor: pointer;
+}
+
+.phasesky-drone__backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.phasesky-drone__glow,
+.phasesky-drone__grid {
+  position: absolute;
+  inset: 0;
+}
+
+.phasesky-drone__glow {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(113, 208, 255, 0.16), rgba(113, 208, 255, 0) 48%),
+    radial-gradient(circle at 70% 24%, rgba(217, 227, 238, 0.08), transparent 40%),
+    radial-gradient(circle at 30% 70%, rgba(113, 208, 255, 0.12), transparent 42%);
+  opacity: 0.65;
+}
+
+.phasesky-drone__grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 34px 34px, 34px 34px;
+  mask-image: radial-gradient(circle at 50% 55%, rgba(0, 0, 0, 0.6), transparent 70%);
+}
+
+.phasesky-drone__scene {
+  position: relative;
+  z-index: 1;
+  min-height: 360px;
+}
+
+.phasesky-drone svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.phase-group {
+  transition: transform 650ms ease-in-out;
+}
+
+.prop-unit {
+  transition: transform 650ms ease-in-out;
+}
+
+.phasesky-drone .phase-group--pcb,
+.phasesky-drone .phase-group--power,
+.phasesky-drone .motor-unit,
+.phasesky-drone .prop-unit,
+.phasesky-drone .phase-group--frame {
+  transform: translate(var(--base-x, 0), var(--base-y, 0));
+}
+
+.phasesky-drone.is-exploded .phase-group--pcb {
+  transform: translate(calc(var(--base-x, 0) + 6px), calc(var(--base-y, 0) - 42px));
+}
+
+.phasesky-drone.is-exploded .phase-group--power {
+  transform: translate(calc(var(--base-x, 0) - 6px), calc(var(--base-y, 0) + 44px));
+}
+
+.phasesky-drone.is-exploded .phase-group--frame {
+  transform: translate(calc(var(--base-x, 0)), calc(var(--base-y, 0) + 6px));
+}
+
+.phasesky-drone.is-exploded .motor-unit[data-position="front-left"],
+.phasesky-drone.is-exploded .prop-unit[data-position="front-left"] {
+  transform: translate(calc(var(--base-x) - 62px), calc(var(--base-y) - 28px));
+}
+
+.phasesky-drone.is-exploded .motor-unit[data-position="front-right"],
+.phasesky-drone.is-exploded .prop-unit[data-position="front-right"] {
+  transform: translate(calc(var(--base-x) + 62px), calc(var(--base-y) - 28px));
+}
+
+.phasesky-drone.is-exploded .motor-unit[data-position="rear-left"],
+.phasesky-drone.is-exploded .prop-unit[data-position="rear-left"] {
+  transform: translate(calc(var(--base-x) - 62px), calc(var(--base-y) + 42px));
+}
+
+.phasesky-drone.is-exploded .motor-unit[data-position="rear-right"],
+.phasesky-drone.is-exploded .prop-unit[data-position="rear-right"] {
+  transform: translate(calc(var(--base-x) + 62px), calc(var(--base-y) + 42px));
+}
+
+.phasesky-drone .propeller {
+  transform-origin: center;
+  animation: spin-prop 3.2s linear infinite;
+}
+
+@keyframes spin-prop {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Colour + stroke definitions */
+.phasesky-drone .fill-frame {
+  fill: #0c0f15;
+}
+
+.phasesky-drone .fill-panel {
+  fill: #10141c;
+}
+
+.phasesky-drone .fill-silver {
+  fill: #d6dfea;
+}
+
+.phasesky-drone .fill-blue {
+  fill: #71d0ff;
+}
+
+.phasesky-drone .stroke-silver {
+  stroke: #cfd8e3;
+}
+
+.phasesky-drone .stroke-blue {
+  stroke: #71d0ff;
+}
+
+.phasesky-drone .stroke-dark {
+  stroke: #0b0d12;
+}
+
+/* Labels */
+.phasesky-drone__labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-family: var(--font-family);
+  z-index: 2;
+}
+
+.phasesky-drone__label {
+  position: absolute;
+  padding: 0.35rem 0.55rem;
+  background: rgba(7, 10, 14, 0.84);
+  border-radius: 12px;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 520ms ease-in-out;
+  border: 1px solid rgba(113, 208, 255, 0.28);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.32);
+}
+
+.phasesky-drone.is-exploded .phasesky-drone__label {
+  opacity: 1;
+}
+
+.phasesky-drone__label[data-name]::before {
+  content: attr(data-name);
+}
+
+.phasesky-drone__label .phasesky-drone__leader {
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(113, 208, 255, 0.8), rgba(113, 208, 255, 0));
+  opacity: 0.8;
+  transform-origin: left center;
+  transform: rotate(var(--leader-rotation, 0deg));
+}
+
+.phasesky-drone__hint {
+  margin-top: 0.85rem;
+  color: var(--color-secondary);
+  font-size: 0.95rem;
+  z-index: 1;
+  position: relative;
+}
+
+/* Caption alignment with site spacing */
+.phasesky-drone__caption {
+  margin-top: 0.65rem;
+  color: var(--color-secondary);
+  font-size: 0.95rem;
+  max-width: 760px;
+}
+
+/* Keep the section feeling native to the site */
+.phasesky-drone__shell {
+  position: relative;
+  z-index: 1;
+}
