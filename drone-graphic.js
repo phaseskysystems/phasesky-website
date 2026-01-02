@@ -89,44 +89,89 @@
       const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-      camera.position.set(0, 3, 10);
+      camera.position.set(0, 2.4, 8.2);
 
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
 
-      const ambient = new THREE.AmbientLight(0x6688ff, 0.7);
-      const keyLight = new THREE.DirectionalLight(0x99bbff, 0.9);
+      const ambient = new THREE.HemisphereLight(0x9bbdff, 0x0b1324, 0.65);
+      const keyLight = new THREE.DirectionalLight(0xb5ccff, 0.9);
       keyLight.position.set(3, 5, 4);
-      scene.add(ambient, keyLight);
+      const rimLight = new THREE.DirectionalLight(0x4d7dff, 0.55);
+      rimLight.position.set(-4, 3, -3);
+      scene.add(ambient, keyLight, rimLight);
 
-      const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0x92a5d6, metalness: 0.4, roughness: 0.35 });
-      const shellMaterial = new THREE.MeshStandardMaterial({ color: 0x9eb7ff, emissive: 0x204c9d, emissiveIntensity: 0.3, roughness: 0.6 });
+      const chassisMaterial = new THREE.MeshStandardMaterial({ color: 0x0f1b2f, metalness: 0.72, roughness: 0.28 });
+      const platingMaterial = new THREE.MeshStandardMaterial({ color: 0x1c2f4f, metalness: 0.82, roughness: 0.2, emissive: 0x162c55, emissiveIntensity: 0.12 });
+      const accentMaterial = new THREE.MeshStandardMaterial({ color: 0x7ea6ff, metalness: 0.5, roughness: 0.35, emissive: 0x2a5fd1, emissiveIntensity: 0.35 });
+      const glassMaterial = new THREE.MeshStandardMaterial({ color: 0xa9c6ff, metalness: 0.1, roughness: 0.05, transparent: true, opacity: 0.7, emissive: 0x1d3a6f, emissiveIntensity: 0.2 });
 
-      const body = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.6, 2), bodyMaterial);
-      body.position.y = 0.25;
-      scene.add(body);
+      const hull = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.7, 2.4), chassisMaterial);
+      hull.position.y = 0.32;
+      scene.add(hull);
 
-      const topShell = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.25, 1.6), shellMaterial);
-      topShell.position.y = 0.75;
-      scene.add(topShell);
+      const keel = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.2, 0.6), platingMaterial);
+      keel.position.y = 0.05;
+      scene.add(keel);
 
-      const armMaterial = new THREE.MeshStandardMaterial({ color: 0x6f7d9a, metalness: 0.55, roughness: 0.28 });
+      const spine = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.24, 1.6), platingMaterial);
+      spine.position.y = 0.82;
+      scene.add(spine);
+
+      const canopy = new THREE.Mesh(new THREE.BoxGeometry(2.05, 0.22, 1.35), glassMaterial);
+      canopy.position.set(-0.08, 1.05, -0.06);
+      canopy.rotation.y = -0.08;
+      scene.add(canopy);
+
+      const accentStrip = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.1, 1.8), accentMaterial);
+      accentStrip.position.set(1.35, 0.82, -0.1);
+      scene.add(accentStrip);
+
+      const armMaterial = new THREE.MeshStandardMaterial({ color: 0x111a2b, metalness: 0.85, roughness: 0.25 });
+      const rotorMaterial = new THREE.MeshStandardMaterial({ color: 0x2d3e5f, metalness: 0.78, roughness: 0.22, emissive: 0x0d2145, emissiveIntensity: 0.18 });
+      const propMaterial = new THREE.MeshStandardMaterial({ color: 0xc8d7f5, transparent: true, opacity: 0.92, metalness: 0.1, roughness: 0.05 });
+
+      const addEdges = mesh => {
+        const edges = new THREE.EdgesGeometry(mesh.geometry, 50);
+        const line = new THREE.LineSegments(
+          edges,
+          new THREE.LineBasicMaterial({ color: 0x3a4f72, transparent: true, opacity: 0.32 })
+        );
+        line.position.copy(mesh.position);
+        line.rotation.copy(mesh.rotation);
+        scene.add(line);
+      };
+
+      [hull, spine].forEach(addEdges);
+
       const createArm = (x, z) => {
-        const arm = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.18, 0.35), armMaterial);
-        arm.rotation.y = Math.PI / 4;
-        arm.position.set(x, 0.1, z);
-        scene.add(arm);
+        const group = new THREE.Group();
+        const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.14, 3.9, 24), armMaterial);
+        arm.rotation.z = Math.PI / 2;
+        arm.position.set(x * 0.9, 0.32, z * 0.9);
+        group.add(arm);
 
-        const rotor = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.32, 0.4, 24), shellMaterial);
+        const brace = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.1, 0.26), platingMaterial);
+        brace.rotation.y = Math.PI / 4;
+        brace.position.set(x * 0.95, 0.18, z * 0.95);
+        group.add(brace);
+
+        const rotor = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.36, 0.48, 28), rotorMaterial);
         rotor.rotation.x = Math.PI / 2;
-        rotor.position.set(x * 1.6, 0.55, z * 1.6);
-        scene.add(rotor);
+        rotor.position.set(x * 1.5, 0.65, z * 1.5);
+        group.add(rotor);
 
-        const propMaterial = new THREE.MeshStandardMaterial({ color: 0xb9c6e6, transparent: true, opacity: 0.9 });
-        const blade = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.05, 0.2), propMaterial);
-        blade.position.set(rotor.position.x, rotor.position.y + 0.25, rotor.position.z);
+        const guard = new THREE.Mesh(new THREE.TorusGeometry(1.02, 0.03, 12, 42), accentMaterial);
+        guard.position.copy(rotor.position);
+        guard.rotation.x = Math.PI / 2;
+        group.add(guard);
+
+        const blade = new THREE.Mesh(new THREE.BoxGeometry(1.95, 0.05, 0.18), propMaterial);
+        blade.position.set(rotor.position.x, rotor.position.y + 0.24, rotor.position.z);
         blade.userData.isBlade = true;
-        scene.add(blade);
+        group.add(blade);
+
+        scene.add(group);
       };
 
       createArm(1.5, 1.1);
@@ -134,22 +179,40 @@
       createArm(1.5, -1.1);
       createArm(-1.5, -1.1);
 
+      const intake = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.52, 0.3, 28, 1, true), accentMaterial);
+      intake.rotation.z = Math.PI / 2;
+      intake.position.set(-1.1, 0.54, 0.35);
+      scene.add(intake);
+
       const ledSphere = new THREE.Mesh(
-        new THREE.SphereGeometry(0.18, 32, 32),
-        new THREE.MeshStandardMaterial({ color: 0x98b9ff, emissive: 0x4d7dff, emissiveIntensity: 1.5 })
+        new THREE.SphereGeometry(0.19, 32, 32),
+        new THREE.MeshStandardMaterial({ color: 0x9bc2ff, emissive: 0x4d7dff, emissiveIntensity: 1.35 })
       );
-      ledSphere.position.set(0.9, 0.95, -0.6);
+      ledSphere.position.set(1.15, 0.96, -0.66);
       scene.add(ledSphere);
 
-      const targetRotation = { x: 0.08, y: 0 };
+      const navBeacon = new THREE.Mesh(
+        new THREE.SphereGeometry(0.1, 24, 24),
+        new THREE.MeshStandardMaterial({ color: 0x7cf3ff, emissive: 0x7cf3ff, emissiveIntensity: 0.7, transparent: true, opacity: 0.9 })
+      );
+      navBeacon.position.set(-1.3, 0.9, 0.72);
+      scene.add(navBeacon);
+
+      const undercarriage = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.12, 1.8), rotorMaterial);
+      undercarriage.position.y = -0.08;
+      scene.add(undercarriage);
+
+      const floatingParts = [hull, spine, canopy, accentStrip];
+      const clock = new THREE.Clock();
+      const targetRotation = { x: 0.05, y: 0 };
       let hoverGlow = 0;
 
       const onPointerMove = event => {
         const rect = stage.getBoundingClientRect();
         const nx = (event.clientX - rect.left) / rect.width - 0.5;
         const ny = (event.clientY - rect.top) / rect.height - 0.5;
-        targetRotation.y = nx * 0.4;
-        targetRotation.x = 0.08 - ny * 0.3;
+        targetRotation.y = nx * 0.42;
+        targetRotation.x = 0.06 - ny * 0.28;
       };
 
       const onPointerEnter = () => {
@@ -182,16 +245,24 @@
         animationFrameId = requestAnimationFrame(animate);
         if (!isInView) return;
 
-        camera.rotation.y += (targetRotation.y - camera.rotation.y) * 0.04;
-        camera.rotation.x += (targetRotation.x - camera.rotation.x) * 0.04;
+        const t = clock.getElapsedTime();
+
+        camera.rotation.y += (targetRotation.y - camera.rotation.y) * 0.045;
+        camera.rotation.x += (targetRotation.x - camera.rotation.x) * 0.045;
+
+        floatingParts.forEach((part, index) => {
+          part.position.y += Math.sin(t * 1.2 + index * 0.8) * 0.002;
+        });
 
         scene.traverse(child => {
           if (child.userData.isBlade && !prefersReducedMotion) {
-            child.rotation.y += 0.18;
+            child.rotation.y += 0.2;
           }
         });
 
-        ledSphere.material.emissiveIntensity = 1.1 + hoverGlow * 0.6;
+        const beaconPulse = 0.15 * Math.sin(t * 4) + 0.9;
+        navBeacon.material.emissiveIntensity = beaconPulse * 0.8;
+        ledSphere.material.emissiveIntensity = 1.05 + hoverGlow * 0.65 + Math.sin(t * 3) * 0.05;
         renderer.render(scene, camera);
       };
 
