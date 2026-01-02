@@ -1,4 +1,4 @@
-import { buildPhaseSkyDroneScene } from './PhaseSkyDroneScene_REV_001.js';
+import { buildPhaseSkyDroneGraphic } from './PhaseSkyDroneGraphic_REV_001.js';
 
 const LABEL_POSITIONS = {
   FRAME: { top: '55%', left: '52%', angle: -32 },
@@ -38,7 +38,7 @@ const initPhaseSkyDrone = () => {
   const labelLayer = createLabelLayer(container);
   container.append(labelLayer);
 
-  buildPhaseSkyDroneScene(container);
+  buildPhaseSkyDroneGraphic(container);
 
   container.setAttribute('data-state', 'ASSEMBLED');
 
