@@ -325,7 +325,8 @@ main {
   content: "";
   position: absolute;
   /* Position the connecting line at half the node height (20px / 2 = 10) plus a little offset */
-  top: 16px;
+  /* Adjust line position to align with centre of 24px nodes */
+  top: 18px;
   left: 0;
   right: 0;
   /* Use a dashed accent line to represent phases connecting the nodes */
@@ -339,29 +340,67 @@ main {
   text-align: center;
 }
 
+/*
+  Timeline nodes: display as hollow circles with an illuminated core
+  The outer ring is drawn using a border matching the status colour. A
+  pseudo‑element draws the inner filled circle and applies a soft glow.
+*/
 .timeline-item .node {
-  /* Larger nodes for better visibility */
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   margin: 0 auto;
   position: relative;
+  border: 2px solid var(--status-color, var(--color-muted));
+  background-color: transparent;
   z-index: 2;
 }
 
-/* Colour coding for timeline nodes */
-.timeline-item.available .node {
-  background-color: var(--color-green);
+/* Create the inner dot and glow */
+.timeline-item .node::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  /* Use a radial gradient and drop shadow to create a more volumetric glow */
+  background: radial-gradient(
+    circle,
+    rgba(var(--glow-r), var(--glow-g), var(--glow-b), 1) 0%,
+    rgba(var(--glow-r), var(--glow-g), var(--glow-b), 0.6) 45%,
+    rgba(var(--glow-r), var(--glow-g), var(--glow-b), 0.2) 75%,
+    transparent 90%
+  );
+  box-shadow: 0 0 8px 4px rgba(var(--glow-r), var(--glow-g), var(--glow-b), 0.6);
 }
-.timeline-item.coming-soon .node {
-  background-color: var(--color-orange);
+
+/* Assign status colours and glow values via CSS variables */
+.timeline-item.available {
+  --status-color: var(--color-green);
+  --glow-r: 76;   /* r value for 0x4caf50 */
+  --glow-g: 175;  /* g value */
+  --glow-b: 80;   /* b value */
 }
-.timeline-item.in-development .node {
-  background-color: var(--color-blue);
-  box-shadow: 0 0 8px 2px rgba(86, 165, 243, 0.6);
+.timeline-item.coming-soon {
+  --status-color: var(--color-orange);
+  --glow-r: 255;
+  --glow-g: 152;
+  --glow-b: 0;
 }
-.timeline-item.planned .node {
-  background-color: var(--color-muted);
+.timeline-item.in-development {
+  --status-color: var(--color-blue);
+  --glow-r: 54;
+  --glow-g: 129;
+  --glow-b: 208;
+}
+.timeline-item.planned {
+  --status-color: var(--color-muted);
+  --glow-r: 64;
+  --glow-g: 86;
+  --glow-b: 115;
 }
 
 .timeline-content {
@@ -419,4 +458,38 @@ footer {
 
 .mt-lg {
   margin-top: var(--spacing-lg);
+}
+
+/* Rotate animation for drone propellers */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply continuous rotation to propeller blades */
+.propeller {
+  animation: spin 2s linear infinite;
+  transform-origin: center;
+}
+
+/* Interactive motion on the drone illustration */
+.drone-visual {
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+.drone-visual:hover {
+  transform: rotateX(8deg) rotateY(-8deg);
+}
+
+/* Interactive feature hover effect for about page sections */
+.interactive-feature {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.interactive-feature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
