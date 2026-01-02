@@ -18,7 +18,7 @@
     <header>
       <div class="container header-container">
         <a href="index.html" class="logo">
-          <img src="assets/logo.png" alt="PhaseSky logo" />
+          <img src="PhaseSkyLogo.png" alt="PhaseSky logo" />
         </a>
         <nav>
           <ul>
@@ -143,73 +143,74 @@
           </p>
           <div class="stack-container">
             <div class="drone-visual">
-              <!-- Enhanced drone illustration: diagonal arms with propellers and a clearly defined integrated PCB.
-                   Each layer animates gently to assemble the system. All subsystems (FC/ESC/Radio/Sensors) are shown
-                   as part of a single board to underscore integration. -->
-              <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
-                <!-- Layer 1: arms and props -->
+              <!-- Futuristic drone illustration with shading and rotating propellers. Each layer animates into place.
+                   The design emphasises a sleek frame, integrated board and spinning motors. -->
+              <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+                <!-- Gradients for shading -->
+                <defs>
+                  <!-- Arm gradient: subtle transition from muted to section background to give depth -->
+                  <linearGradient id="armGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--color-muted)" />
+                    <stop offset="100%" stop-color="var(--color-section-bg)" />
+                  </linearGradient>
+                  <!-- Motor housing gradient: lighter at top, darker at bottom -->
+                  <linearGradient id="motorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="var(--color-section-bg)" />
+                    <stop offset="100%" stop-color="var(--color-muted)" />
+                  </linearGradient>
+                </defs>
+                <!-- Arms: four arms extending diagonally with subtle shading -->
                 <g class="drone-layer" style="animation-delay: 0.05s">
-                  <!-- four diagonal arms -->
-                  <line x1="140" y1="140" x2="50" y2="40" stroke="var(--color-muted)" stroke-width="6" stroke-linecap="round" />
-                  <line x1="140" y1="140" x2="230" y2="40" stroke="var(--color-muted)" stroke-width="6" stroke-linecap="round" />
-                  <line x1="140" y1="140" x2="50" y2="240" stroke="var(--color-muted)" stroke-width="6" stroke-linecap="round" />
-                  <line x1="140" y1="140" x2="230" y2="240" stroke="var(--color-muted)" stroke-width="6" stroke-linecap="round" />
-                  <!-- propeller hubs -->
-                  <circle cx="50" cy="40" r="10" fill="var(--color-muted)" />
-                  <circle cx="230" cy="40" r="10" fill="var(--color-muted)" />
-                  <circle cx="50" cy="240" r="10" fill="var(--color-muted)" />
-                  <circle cx="230" cy="240" r="10" fill="var(--color-muted)" />
-                  <!-- blades on each propeller: simple cross -->
-                  <g stroke="var(--color-muted)" stroke-width="1.4">
-                    <line x1="40" y1="40" x2="60" y2="40" />
-                    <line x1="50" y1="30" x2="50" y2="50" />
-                    <line x1="220" y1="40" x2="240" y2="40" />
-                    <line x1="230" y1="30" x2="230" y2="50" />
-                    <line x1="40" y1="240" x2="60" y2="240" />
-                    <line x1="50" y1="230" x2="50" y2="250" />
-                    <line x1="220" y1="240" x2="240" y2="240" />
-                    <line x1="230" y1="230" x2="230" y2="250" />
+                  <!-- Define arm rectangles rotated around the centre -->
+                  <rect x="140" y="15" width="40" height="10" rx="4" ry="4" fill="url(#armGrad)" transform="rotate(45 160 160)" />
+                  <rect x="140" y="15" width="40" height="10" rx="4" ry="4" fill="url(#armGrad)" transform="rotate(135 160 160)" />
+                  <rect x="140" y="15" width="40" height="10" rx="4" ry="4" fill="url(#armGrad)" transform="rotate(225 160 160)" />
+                  <rect x="140" y="15" width="40" height="10" rx="4" ry="4" fill="url(#armGrad)" transform="rotate(315 160 160)" />
+                </g>
+                <!-- Motors and propellers -->
+                <g class="drone-layer" style="animation-delay: 0.15s">
+                  <!-- Motor housings -->
+                  <circle cx="60" cy="60" r="14" fill="url(#motorGrad)" />
+                  <circle cx="260" cy="60" r="14" fill="url(#motorGrad)" />
+                  <circle cx="60" cy="260" r="14" fill="url(#motorGrad)" />
+                  <circle cx="260" cy="260" r="14" fill="url(#motorGrad)" />
+                  <!-- Propeller blades group with spin animation -->
+                  <g class="propeller" transform="translate(60,60)">
+                    <path d="M0,-18 L0,-5 L0,18 L0,5 Z" fill="var(--color-blue)" />
+                    <path d="M-18,0 L-5,0 L18,0 L5,0 Z" fill="var(--color-blue)" />
+                  </g>
+                  <g class="propeller" transform="translate(260,60)">
+                    <path d="M0,-18 L0,-5 L0,18 L0,5 Z" fill="var(--color-blue)" />
+                    <path d="M-18,0 L-5,0 L18,0 L5,0 Z" fill="var(--color-blue)" />
+                  </g>
+                  <g class="propeller" transform="translate(60,260)">
+                    <path d="M0,-18 L0,-5 L0,18 L0,5 Z" fill="var(--color-blue)" />
+                    <path d="M-18,0 L-5,0 L18,0 L5,0 Z" fill="var(--color-blue)" />
+                  </g>
+                  <g class="propeller" transform="translate(260,260)">
+                    <path d="M0,-18 L0,-5 L0,18 L0,5 Z" fill="var(--color-blue)" />
+                    <path d="M-18,0 L-5,0 L18,0 L5,0 Z" fill="var(--color-blue)" />
                   </g>
                 </g>
-
-                <!-- Layer 2: central PCB with integrated subsystems -->
-                <g class="drone-layer" style="animation-delay: 0.20s">
-                  <!-- board background -->
-                  <rect x="95" y="115" width="90" height="50" rx="8" ry="8" fill="var(--color-blue)" />
-                  <!-- subsystem panels: all part of one board -->
-                  <rect x="102" y="122" width="16" height="16" rx="2" ry="2" fill="var(--color-bg)" />
-                  <rect x="122" y="122" width="16" height="16" rx="2" ry="2" fill="var(--color-bg)" />
-                  <rect x="142" y="122" width="16" height="16" rx="2" ry="2" fill="var(--color-bg)" />
-                  <rect x="162" y="122" width="16" height="16" rx="2" ry="2" fill="var(--color-bg)" />
-                  <!-- subsystem labels -->
-                  <text x="110" y="133" text-anchor="middle" fill="var(--color-blue)" font-size="4">FC</text>
-                  <text x="130" y="133" text-anchor="middle" fill="var(--color-blue)" font-size="4">ESC</text>
-                  <text x="150" y="133" text-anchor="middle" fill="var(--color-blue)" font-size="4">Radio</text>
-                  <text x="170" y="133" text-anchor="middle" fill="var(--color-blue)" font-size="4">Sensors</text>
-                  <!-- board title -->
-                  <text x="140" y="156" text-anchor="middle" fill="var(--color-bg)" font-size="8">PCB v1</text>
+                <!-- Central integrated board -->
+                <g class="drone-layer" style="animation-delay: 0.25s">
+                  <rect x="110" y="140" width="100" height="60" rx="10" ry="10" fill="var(--color-blue)" />
+                  <!-- Subsystem indicators (FC, ESC, Radio, Sensors) -->
+                  <rect x="118" y="148" width="18" height="18" rx="3" ry="3" fill="var(--color-section-bg)" />
+                  <rect x="138" y="148" width="18" height="18" rx="3" ry="3" fill="var(--color-section-bg)" />
+                  <rect x="158" y="148" width="18" height="18" rx="3" ry="3" fill="var(--color-section-bg)" />
+                  <rect x="178" y="148" width="18" height="18" rx="3" ry="3" fill="var(--color-section-bg)" />
+                  <text x="127" y="159" text-anchor="middle" fill="var(--color-blue)" font-size="4">FC</text>
+                  <text x="147" y="159" text-anchor="middle" fill="var(--color-blue)" font-size="4">ESC</text>
+                  <text x="167" y="159" text-anchor="middle" fill="var(--color-blue)" font-size="4">Radio</text>
+                  <text x="187" y="159" text-anchor="middle" fill="var(--color-blue)" font-size="4">Sensors</text>
+                  <!-- Board label -->
+                  <text x="160" y="183" text-anchor="middle" fill="var(--color-section-bg)" font-size="8">PCB v1</text>
                 </g>
-
-                <!-- Layer 3: wiring connecting board to arms (thin dashed lines) -->
+                <!-- Battery under board -->
                 <g class="drone-layer" style="animation-delay: 0.35s">
-                  <!-- top-left wires -->
-                  <polyline points="110,131 80,90 50,40" stroke="var(--color-muted)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
-                  <polyline points="130,131 170,90 230,40" stroke="var(--color-muted)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
-                  <!-- bottom wires -->
-                  <polyline points="150,131 170,190 230,240" stroke="var(--color-muted)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
-                  <polyline points="170,131 110,190 50,240" stroke="var(--color-muted)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
-                </g>
-
-                <!-- Layer 4: battery and labels -->
-                <g class="drone-layer" style="animation-delay: 0.45s">
-                  <rect x="115" y="180" width="50" height="16" rx="3" ry="3" fill="var(--color-muted)" />
-                  <text x="140" y="191" text-anchor="middle" fill="var(--color-primary)" font-size="7">Battery</text>
-                </g>
-
-                <!-- Layer 5: descriptive text labels for arms and frame -->
-                <g class="drone-layer" style="animation-delay: 0.55s">
-                  <text x="140" y="24" text-anchor="middle" fill="var(--color-primary)" font-size="8">Arms &amp; Propellers</text>
-                  <text x="140" y="256" text-anchor="middle" fill="var(--color-primary)" font-size="8">Frame</text>
+                  <rect x="130" y="210" width="60" height="18" rx="4" ry="4" fill="var(--color-muted)" />
+                  <text x="160" y="222" text-anchor="middle" fill="var(--color-primary)" font-size="7">Battery</text>
                 </g>
               </svg>
             </div>
