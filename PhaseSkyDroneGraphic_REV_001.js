@@ -1,19 +1,20 @@
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
-const COORDS = {
-  radius: 92,
+// Coordinate system: +X right, +Y up, +Z forward (toward viewer)
+const LAYOUT = {
+  radius: 96,
   motorY: 0,
-  pcb: { x: 0, y: -24, z: 10 },
-  power: { x: 0, y: 22, z: -6 },
+  pcb: { x: 0, y: -22, z: 18 },
+  power: { x: 0, y: 24, z: -14 },
   frame: { x: 0, y: 0, z: 0 }
 };
 
-const MOTOR_ORDER = ['front-left', 'front-right', 'rear-left', 'rear-right'];
+const MOTOR_IDS = ['front-left', 'front-right', 'rear-left', 'rear-right'];
 const MOTOR_POSITIONS = {
-  'front-left': { x: -COORDS.radius, y: COORDS.motorY, z: COORDS.radius },
-  'front-right': { x: COORDS.radius, y: COORDS.motorY, z: COORDS.radius },
-  'rear-left': { x: -COORDS.radius, y: COORDS.motorY, z: -COORDS.radius },
-  'rear-right': { x: COORDS.radius, y: COORDS.motorY, z: -COORDS.radius }
+  'front-left': { x: -LAYOUT.radius, y: LAYOUT.motorY, z: LAYOUT.radius },
+  'front-right': { x: LAYOUT.radius, y: LAYOUT.motorY, z: LAYOUT.radius },
+  'rear-left': { x: -LAYOUT.radius, y: LAYOUT.motorY, z: -LAYOUT.radius },
+  'rear-right': { x: LAYOUT.radius, y: LAYOUT.motorY, z: -LAYOUT.radius }
 };
 
 const PROP_SPIN_SIGNS = {
@@ -23,15 +24,21 @@ const PROP_SPIN_SIGNS = {
   'rear-left': -1
 };
 
-const createSvg = (tag, attrs = {}) => {
-  const el = document.createElementNS(SVG_NS, tag);
-  Object.entries(attrs).forEach(([key, value]) => {
-    if (value !== undefined) el.setAttribute(key, value);
-  });
-  return el;
+const PROJECTION = {
+  project(x, z) {
+    return { x, y: z * 0.7 };
+  }
 };
 
-const setTransform = (el, x = 0, y = 0) => {
+const createSvg = (tag, attrs = {}) => {
+  const node = document.createElementNS(SVG_NS, tag);
+  Object.entries(attrs).forEach(([key, value]) => {
+    if (value !== undefined) node.setAttribute(key, value);
+  });
+  return node;
+};
+
+const setTranslate = (el, x = 0, y = 0) => {
   el.setAttribute('transform', `translate(${x} ${y})`);
 };
 
@@ -40,122 +47,115 @@ const deg = rad => (rad * 180) / Math.PI;
 const createArm = (dx, dz, length) => {
   const angle = deg(Math.atan2(dz, dx));
   const arm = createSvg('g', { class: 'psk-arm' });
-  const taper = createSvg('path', {
-    d: `M0 -8 L ${length - 14} -4 Q ${length} 0 ${length - 14} 4 L 0 8 Z`,
+  const body = createSvg('path', {
+    d: `M0 -7 L ${length - 12} -4 Q ${length} 0 ${length - 12} 4 L 0 7 Q 12 0 0 -7 Z`,
     class: 'arm-body'
   });
   const inset = createSvg('path', {
-    d: `M10 -3 L ${length - 22} -1 Q ${length - 12} 0 ${length - 22} 1 L 10 3 Z`,
+    d: `M10 -2.6 L ${length - 24} -1.6 Q ${length - 14} 0 ${length - 24} 1.6 L 10 2.6 Z`,
     class: 'arm-inset'
   });
-  arm.append(taper, inset);
+  arm.append(body, inset);
   arm.setAttribute('transform', `rotate(${angle})`);
   return arm;
 };
 
 const createMotor = () => {
-  const motor = createSvg('g', { class: 'psk-motor' });
+  const g = createSvg('g', { class: 'psk-motor' });
   const bell = createSvg('circle', { r: 14, class: 'motor-bell' });
   const body = createSvg('circle', { r: 11, class: 'motor-body' });
   const hub = createSvg('circle', { r: 4.5, class: 'motor-hub' });
-  motor.append(bell, body, hub);
-  return motor;
+  g.append(bell, body, hub);
+  return g;
 };
 
 const createProp = () => {
-  const prop = createSvg('g', { class: 'psk-prop' });
-  const hub = createSvg('circle', { r: 2.6, class: 'prop-hub' });
-  const blade1 = createSvg('path', {
-    d: 'M0 0 C 12 -1 44 -6 58 -2 C 44 2 12 1 0 0 Z',
+  const g = createSvg('g', { class: 'psk-prop' });
+  const hub = createSvg('circle', { r: 2.8, class: 'prop-hub' });
+  const bladeA = createSvg('path', {
+    d: 'M0 0 C 12 -1 44 -6 60 -2 C 44 2 12 1 0 0 Z',
     class: 'prop-blade'
   });
-  const blade2 = createSvg('path', {
-    d: 'M0 0 C -12 1 -44 6 -58 2 C -44 -2 -12 -1 0 0 Z',
+  const bladeB = createSvg('path', {
+    d: 'M0 0 C -12 1 -44 6 -60 2 C -44 -2 -12 -1 0 0 Z',
     class: 'prop-blade'
   });
-  const blade3 = createSvg('path', {
-    d: 'M0 0 C 4 10 6 40 2 54 C -2 40 -4 10 0 0 Z',
-    class: 'prop-blade'
-  });
-  prop.append(blade1, blade2, blade3, hub);
-  prop.style.transform = 'rotateY(0deg)';
-  return prop;
+  g.append(bladeA, bladeB, hub);
+  g.style.transform = 'rotate(0deg)';
+  g.style.transformOrigin = 'center center';
+  return g;
 };
 
-const createBoard = (width, height, radius, cls) =>
-  createSvg('rect', { x: -width / 2, y: -height / 2, width, height, rx: radius, class: cls });
-
-const computeScreen = (x, z) => ({ x, y: z * 0.78 });
+const createBoard = (w, h, r, cls) => createSvg('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: r, class: cls });
 
 const validateLayout = ({ motors, props }) => {
   const radii = motors.map(m => Math.hypot(m.position.x, m.position.z));
   const baseline = radii[0];
   motors.forEach(m => {
-    if (Math.abs(m.position.y - COORDS.motorY) > 1e-4) {
-      throw new Error('Motor Y positions must be identical');
+    if (Math.abs(m.position.y - LAYOUT.motorY) > 1e-4) {
+      throw new Error('Motor Y positions must match');
     }
-    if (Math.abs(Math.hypot(m.position.x, m.position.z) - baseline) > 0.5) {
+    if (Math.abs(Math.hypot(m.position.x, m.position.z) - baseline) > 0.25) {
       throw new Error('Motor radii mismatch');
     }
   });
-  props.forEach(({ prop, motor }) => {
+  props.forEach(({ prop, group, motor }) => {
     const propMatrix = prop.getScreenCTM();
     const motorMatrix = motor.getScreenCTM();
     if (!propMatrix || !motorMatrix) return;
-    const propOrigin = { x: propMatrix.e, y: propMatrix.f };
-    const motorOrigin = { x: motorMatrix.e, y: motorMatrix.f };
-    if (Math.hypot(propOrigin.x - motorOrigin.x, propOrigin.y - motorOrigin.y) > 0.75) {
-      throw new Error('Prop misaligned with motor shaft');
+    const propPos = { x: propMatrix.e, y: propMatrix.f };
+    const motorPos = { x: motorMatrix.e, y: motorMatrix.f };
+    if (Math.hypot(propPos.x - motorPos.x, propPos.y - motorPos.y) > 0.9) {
+      throw new Error('Prop not centered on motor');
     }
     const transform = prop.style.transform || '';
-    const hasXorZ = /rotateX\([^0]/.test(transform) || /rotateZ\([^0]/.test(transform));
-    if (hasXorZ) {
-      throw new Error('Prop rotation must only use Y axis');
+    if (
+      /rotateX\([^0]/.test(transform) ||
+      /rotateZ\([^0]/.test(transform)) ||
+      (/rotateY\([^0]/.test(transform)) && !/rotate\(/.test(transform))
+    ) {
+      throw new Error('Prop rotation must stay on local Y only');
     }
   });
 };
 
 export function buildPhaseSkyDroneGraphic(container) {
   const host = container.querySelector('.phasesky-drone__scene') || container;
-  const svg = createSvg('svg', { viewBox: '-220 -190 440 360', class: 'phasesky-drone__svg', role: 'img', 'aria-hidden': 'true' });
+  const svg = createSvg('svg', {
+    viewBox: '-220 -200 440 380',
+    class: 'phasesky-drone__svg',
+    role: 'img',
+    'aria-hidden': 'true'
+  });
+
   const defs = createSvg('defs');
-  const glow = createSvg('radialGradient', { id: 'psk-glow', cx: '50%', cy: '50%', r: '60%' });
+  const glow = createSvg('radialGradient', { id: 'psk-glow', cx: '50%', cy: '45%', r: '65%' });
   glow.append(
-    createSvg('stop', { offset: '0%', 'stop-color': '#7dd5ff', 'stop-opacity': '0.4' }),
+    createSvg('stop', { offset: '0%', 'stop-color': '#7dd5ff', 'stop-opacity': '0.35' }),
     createSvg('stop', { offset: '100%', 'stop-color': '#7dd5ff', 'stop-opacity': '0' })
   );
   defs.append(glow);
   svg.append(defs);
 
   const root = createSvg('g', { class: 'psk-root' });
-
-  const halo = createSvg('circle', { r: 170, class: 'psk-halo', fill: 'url(#psk-glow)' });
+  const halo = createSvg('circle', { r: 176, class: 'psk-halo', fill: 'url(#psk-glow)' });
   root.append(halo);
 
   const frameGroup = createSvg('g', { class: 'psk-frame' });
-  setTransform(frameGroup, COORDS.frame.x, computeScreen(0, COORDS.frame.z).y);
-
-  const body = createBoard(128, 54, 14, 'frame-body');
-  const stripe = createBoard(118, 12, 8, 'frame-stripe');
-  stripe.setAttribute('y', '-6');
-  frameGroup.append(body, stripe);
+  const body = createBoard(138, 56, 14, 'frame-body');
+  const spine = createBoard(122, 14, 10, 'frame-stripe');
+  spine.setAttribute('y', '-4');
+  frameGroup.append(body, spine);
 
   const pcbGroup = createSvg('g', { class: 'psk-pcb' });
-  const pcbOffset = computeScreen(COORDS.pcb.x, COORDS.pcb.z);
-  setTransform(pcbGroup, pcbOffset.x, pcbOffset.y - 34);
-  const pcbBase = createBoard(94, 34, 8, 'pcb-base');
-  const pcbTrace = createSvg('path', {
-    d: 'M-34 -4 H -6 L -2 6 H 30',
-    class: 'pcb-trace'
-  });
+  const pcbBase = createBoard(92, 36, 8, 'pcb-base');
+  const pcbTrace = createSvg('path', { d: 'M-34 -5 H -8 L -2 6 H 32', class: 'pcb-trace' });
   pcbGroup.append(pcbBase, pcbTrace);
 
   const powerGroup = createSvg('g', { class: 'psk-power' });
-  const powerOffset = computeScreen(COORDS.power.x, COORDS.power.z);
-  setTransform(powerGroup, powerOffset.x, powerOffset.y + 34);
-  const powerBase = createBoard(92, 28, 10, 'power-base');
-  const powerBand = createBoard(98, 12, 8, 'power-band');
-  powerBand.setAttribute('y', '-6');
+  const powerBase = createBoard(96, 30, 10, 'power-base');
+  const powerBand = createBoard(102, 12, 8, 'power-band');
+  powerBand.setAttribute('y', '-4');
   powerGroup.append(powerBase, powerBand);
 
   const armLayer = createSvg('g', { class: 'psk-arms' });
@@ -164,30 +164,40 @@ export function buildPhaseSkyDroneGraphic(container) {
 
   const motorNodes = [];
   const propNodes = [];
-  MOTOR_ORDER.forEach(id => {
+
+  MOTOR_IDS.forEach(id => {
     const pos = MOTOR_POSITIONS[id];
-    const screen = computeScreen(pos.x, pos.z);
+    const screen = PROJECTION.project(pos.x, pos.z);
     const dir = { x: pos.x, z: pos.z };
-    const length = Math.hypot(dir.x, dir.z) - 22;
+    const length = Math.max(Math.hypot(dir.x, dir.z) - 18, 72);
+
     const arm = createArm(dir.x, dir.z, length);
-    setTransform(arm, 0, 0);
     armLayer.append(arm);
 
     const motorGroup = createSvg('g', { class: 'motor-unit', 'data-position': id });
-    setTransform(motorGroup, screen.x, screen.y);
+    setTranslate(motorGroup, screen.x, screen.y);
     const motor = createMotor();
     motorGroup.append(motor);
     motorLayer.append(motorGroup);
 
     const propGroup = createSvg('g', { class: 'prop-unit', 'data-position': id });
-    setTransform(propGroup, screen.x, screen.y - 2);
+    setTranslate(propGroup, screen.x, screen.y - 2);
     const prop = createProp();
     propGroup.append(prop);
     propLayer.append(propGroup);
 
-    motorNodes.push({ group: motorGroup, position: pos, motor });
+    motorNodes.push({ group: motorGroup, motor, position: pos });
     propNodes.push({ group: propGroup, prop, position: pos, motor: motorGroup });
   });
+
+  const pcbOffset = PROJECTION.project(LAYOUT.pcb.x, LAYOUT.pcb.z);
+  setTranslate(pcbGroup, pcbOffset.x, pcbOffset.y - 30);
+
+  const powerOffset = PROJECTION.project(LAYOUT.power.x, LAYOUT.power.z);
+  setTranslate(powerGroup, powerOffset.x, powerOffset.y + 34);
+
+  const frameOffset = PROJECTION.project(LAYOUT.frame.x, LAYOUT.frame.z);
+  setTranslate(frameGroup, frameOffset.x, frameOffset.y + 4);
 
   root.append(frameGroup, armLayer, pcbGroup, powerGroup, motorLayer, propLayer);
   svg.append(root);
@@ -202,11 +212,10 @@ export function buildPhaseSkyDroneGraphic(container) {
     const delta = (time - lastTime) / 1000;
     lastTime = time;
     propNodes.forEach(({ prop, group }) => {
-      const id = group.dataset.position;
-      const sign = PROP_SPIN_SIGNS[id] || 1;
-      const angle = (prop._angle || 0) + delta * 9 * sign * 60;
-      prop._angle = angle;
-      prop.style.transform = `rotateY(${angle}deg)`;
+      const sign = PROP_SPIN_SIGNS[group.dataset.position] || 1;
+      const nextAngle = (prop._angle || 0) + delta * 720 * sign;
+      prop._angle = nextAngle;
+      prop.style.transform = `rotate(${nextAngle}deg)`;
     });
     requestAnimationFrame(tick);
   };
@@ -215,10 +224,5 @@ export function buildPhaseSkyDroneGraphic(container) {
   const observer = new MutationObserver(() => enforce());
   observer.observe(container, { attributes: true, attributeFilter: ['class'] });
 
-  return {
-    root,
-    svg,
-    nodes: { frameGroup, pcbGroup, powerGroup, armLayer, motorLayer, propLayer },
-    validate: enforce
-  };
+  return { root, svg, nodes: { frameGroup, pcbGroup, powerGroup, armLayer, motorLayer, propLayer }, validate: enforce };
 }
