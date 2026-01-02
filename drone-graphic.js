@@ -40,10 +40,10 @@
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
 
-      const ambient = new THREE.HemisphereLight(0xcfeaff, 0x040608, 0.9);
-      const keyLight = new THREE.DirectionalLight(0xe6f4ff, 0.96);
-      keyLight.position.set(3.6, 5, 4.2);
-      const rimLight = new THREE.DirectionalLight(0xbde5ff, 0.66);
+      const ambient = new THREE.HemisphereLight(0xcfeaff, 0x020305, 0.94);
+      const keyLight = new THREE.DirectionalLight(0xe6f4ff, 0.9);
+      keyLight.position.set(3.6, 4.8, 4.2);
+      const rimLight = new THREE.DirectionalLight(0xbde5ff, 0.62);
       rimLight.position.set(-4.2, 3.2, -3.4);
       scene.add(ambient, keyLight, rimLight);
 
@@ -53,7 +53,13 @@
       const glowBlue = 0x8ad4ff;
 
       const chassisMaterial = new THREE.MeshStandardMaterial({ color: baseBlack, metalness: 0.64, roughness: 0.32 });
-      const platingMaterial = new THREE.MeshStandardMaterial({ color: carbonBlack, metalness: 0.76, roughness: 0.24, emissive: 0x0c1016, emissiveIntensity: 0.08 });
+      const platingMaterial = new THREE.MeshStandardMaterial({
+        color: carbonBlack,
+        metalness: 0.76,
+        roughness: 0.24,
+        emissive: 0x0a0d12,
+        emissiveIntensity: 0.08
+      });
       const accentMaterial = new THREE.MeshStandardMaterial({ color: glowBlue, metalness: 0.44, roughness: 0.32, emissive: 0x8ad4ff, emissiveIntensity: 0.35 });
       const canopyMaterial = new THREE.MeshStandardMaterial({ color: softSilver, metalness: 0.2, roughness: 0.12, transparent: true, opacity: 0.85, emissive: glowBlue, emissiveIntensity: 0.12 });
       const motorMaterial = new THREE.MeshStandardMaterial({ color: carbonBlack, metalness: 0.78, roughness: 0.24 });
@@ -75,10 +81,10 @@
         labelLayer.append(element);
         return element;
       };
-      const registerPart = (mesh, offset, labelName) => {
+      const registerPart = (mesh, offset, labelName, labelOffset) => {
         parts.push({ mesh, base: mesh.position.clone(), offset: offset || new THREE.Vector3() });
         if (labelName) {
-          labels.push({ target: mesh, element: createLabel(labelName) });
+          labels.push({ target: mesh, element: createLabel(labelName), labelOffset: labelOffset || { x: 0, y: -26 } });
         }
       };
 
@@ -161,18 +167,18 @@
         armGroup.position.set(0, 0, 0);
         droneGroup.add(armGroup);
 
-        registerPart(armGroup, new THREE.Vector3(0.22 * xSign, 0.16, 0.24 * zSign));
+        registerPart(armGroup, new THREE.Vector3(0.6 * xSign, 0.16, 0.6 * zSign));
 
         if (xSign === 1 && zSign === 1) {
           const motorLabelAnchor = new THREE.Object3D();
-          motorLabelAnchor.position.set(2.2 * xSign, 0.62, 2.1 * zSign);
+          motorLabelAnchor.position.set(2.1 * xSign, 0.62, 2.1 * zSign);
           armGroup.add(motorLabelAnchor);
-          labels.push({ target: motorLabelAnchor, element: createLabel('MOTORS') });
+          labels.push({ target: motorLabelAnchor, element: createLabel('MOTORS'), labelOffset: { x: 26, y: -8 } });
 
           const propLabelAnchor = new THREE.Object3D();
-          propLabelAnchor.position.set(2.2 * xSign, 0.9, 2.1 * zSign);
+          propLabelAnchor.position.set(2.1 * xSign, 0.9, 2.1 * zSign);
           armGroup.add(propLabelAnchor);
-          labels.push({ target: propLabelAnchor, element: createLabel('PROPS') });
+          labels.push({ target: propLabelAnchor, element: createLabel('PROPS'), labelOffset: { x: 18, y: -34 } });
         }
       };
 
@@ -204,20 +210,19 @@
       undercarriage.position.y = -0.06;
       droneGroup.add(undercarriage);
 
-      registerPart(hull, new THREE.Vector3(0, 0.22, 0), 'FRAME');
-      registerPart(spine, new THREE.Vector3(0, 0.34, 0), 'PCB');
-      registerPart(canopy, new THREE.Vector3(0, 0.28, 0));
-      registerPart(accentStrip, new THREE.Vector3(0.16, 0.12, 0));
-      registerPart(keel, new THREE.Vector3(0, 0.16, 0));
-      registerPart(intake, new THREE.Vector3(-0.18, 0.12, 0), 'POWER');
+      registerPart(hull, new THREE.Vector3(0, 0.32, 0), 'FRAME', { x: -12, y: 22 });
+      registerPart(spine, new THREE.Vector3(0, 0.54, 0), 'PCB', { x: 8, y: -22 });
+      registerPart(canopy, new THREE.Vector3(0, 0.74, 0));
+      registerPart(accentStrip, new THREE.Vector3(0.2, 0.22, 0));
+      registerPart(keel, new THREE.Vector3(0, 0.22, 0));
+      registerPart(intake, new THREE.Vector3(-0.32, 0.22, 0), 'POWER', { x: -48, y: -6 });
       registerPart(ledSphere, new THREE.Vector3(0.08, 0.1, -0.06));
       registerPart(navBeacon, new THREE.Vector3(-0.08, 0.1, 0.08));
-      registerPart(undercarriage, new THREE.Vector3(0, -0.14, 0));
+      registerPart(undercarriage, new THREE.Vector3(0, -0.28, 0));
 
-      const clock = new THREE.Clock();
       let explosionProgress = 0;
       let explosionTarget = 0;
-      const spinSpeed = prefersReducedMotion ? 0 : 0.22;
+      const spinSpeed = prefersReducedMotion ? 0 : 0.24;
 
       const toggleExploded = () => {
         explosionTarget = explosionTarget === 1 ? 0 : 1;
@@ -240,13 +245,23 @@
 
       const updateLabels = () => {
         const rect = stage.getBoundingClientRect();
-        labels.forEach(({ target, element }) => {
+        labels.forEach(({ target, element, labelOffset }) => {
           const world = target.getWorldPosition(new THREE.Vector3());
           world.project(camera);
           const x = (world.x * 0.5 + 0.5) * rect.width;
           const y = (-world.y * 0.5 + 0.5) * rect.height;
-          element.style.left = `${x}px`;
-          element.style.top = `${y}px`;
+          const offsetX = labelOffset?.x || 0;
+          const offsetY = labelOffset?.y || 0;
+          const labelX = x + offsetX;
+          const labelY = y + offsetY;
+          element.style.left = `${labelX}px`;
+          element.style.top = `${labelY}px`;
+          const dx = x - labelX;
+          const dy = y - labelY;
+          const length = Math.min(Math.hypot(dx, dy), 42);
+          const angle = Math.atan2(dy, dx);
+          element.style.setProperty('--leader-length', `${length}px`);
+          element.style.setProperty('--leader-angle', `${angle}rad`);
           const visibility = prefersReducedMotion ? explosionTarget : explosionProgress;
           element.style.opacity = visibility;
         });
@@ -256,11 +271,11 @@
         animationFrameId = requestAnimationFrame(animate);
         if (!isInView) return;
 
-        const delta = prefersReducedMotion ? 1 : 0.08;
+        const delta = prefersReducedMotion ? 1 : 0.12;
         explosionProgress += (explosionTarget - explosionProgress) * delta;
         const easedExplosion = prefersReducedMotion
           ? explosionTarget
-          : THREE.MathUtils.smootherstep(explosionProgress, 0, 1);
+          : THREE.MathUtils.smoothstep(explosionProgress, 0, 1);
 
         parts.forEach(({ mesh, base, offset }) => {
           mesh.position.lerpVectors(base, base.clone().add(offset), easedExplosion);
@@ -271,11 +286,6 @@
             child.rotation.y += spinSpeed * 0.8;
           }
         });
-
-        const t = clock.getElapsedTime();
-        const beaconPulse = 0.1 * Math.sin(t * 3.2) + 0.9;
-        navBeacon.material.emissiveIntensity = beaconPulse * 0.6;
-        ledSphere.material.emissiveIntensity = 0.95 + Math.sin(t * 2.4) * 0.04;
 
         updateLabels();
         renderer.render(scene, camera);
