@@ -146,30 +146,49 @@
 
       const createArm = (x, z) => {
         const group = new THREE.Group();
-        const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.14, 3.9, 24), armMaterial);
-        arm.rotation.z = Math.PI / 2;
-        arm.position.set(x * 0.9, 0.32, z * 0.9);
-        group.add(arm);
+        const anchor = new THREE.Vector3(x * 0.92, 0.32, z * 0.92);
+        const midCurve = new THREE.Vector3(x * 1.12, 0.52, z * 1.04);
+        const leading = new THREE.Vector3(x * 1.32, 0.46, z * 1.28);
+        const outboard = new THREE.Vector3(x * 1.54, 0.6, z * 1.52);
 
-        const brace = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.1, 0.26), platingMaterial);
-        brace.rotation.y = Math.PI / 4;
-        brace.position.set(x * 0.95, 0.18, z * 0.95);
-        group.add(brace);
+        const sparCurve = new THREE.CatmullRomCurve3([anchor, midCurve, leading, outboard]);
+        const spar = new THREE.Mesh(new THREE.TubeGeometry(sparCurve, 36, 0.1, 22, false), armMaterial);
+        group.add(spar);
 
-        const rotor = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.36, 0.48, 28), rotorMaterial);
+        const shroud = new THREE.Mesh(new THREE.CapsuleGeometry(0.22, 1.45, 16, 32), platingMaterial);
+        shroud.rotation.z = Math.PI / 2;
+        shroud.rotation.y = Math.PI / 4;
+        shroud.position.set(x * 0.88, 0.28, z * 0.88);
+        group.add(shroud);
+
+        const fin = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.18, 1.9, 24), platingMaterial);
+        fin.rotation.z = Math.PI / 2;
+        fin.rotation.y = Math.PI / 4;
+        fin.position.set(x * 1.18, 0.42, z * 1.14);
+        group.add(fin);
+
+        const rotor = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.38, 0.45, 32), rotorMaterial);
         rotor.rotation.x = Math.PI / 2;
-        rotor.position.set(x * 1.5, 0.65, z * 1.5);
+        rotor.position.copy(outboard);
         group.add(rotor);
 
-        const guard = new THREE.Mesh(new THREE.TorusGeometry(1.02, 0.03, 12, 42), accentMaterial);
+        const guard = new THREE.Mesh(new THREE.TorusGeometry(1.04, 0.028, 14, 48), accentMaterial);
         guard.position.copy(rotor.position);
         guard.rotation.x = Math.PI / 2;
         group.add(guard);
 
-        const blade = new THREE.Mesh(new THREE.BoxGeometry(1.95, 0.05, 0.18), propMaterial);
+        const blade = new THREE.Mesh(new THREE.BoxGeometry(1.95, 0.04, 0.16), propMaterial);
         blade.position.set(rotor.position.x, rotor.position.y + 0.24, rotor.position.z);
         blade.userData.isBlade = true;
         group.add(blade);
+
+        const bladeHalo = new THREE.Mesh(
+          new THREE.RingGeometry(0.4, 0.62, 36, 1, 0, Math.PI * 2),
+          new THREE.MeshBasicMaterial({ color: 0x7ea6ff, transparent: true, opacity: 0.2, side: THREE.DoubleSide })
+        );
+        bladeHalo.rotation.x = Math.PI / 2;
+        bladeHalo.position.set(rotor.position.x, rotor.position.y + 0.01, rotor.position.z);
+        group.add(bladeHalo);
 
         scene.add(group);
       };
@@ -209,10 +228,10 @@
 
       const onPointerMove = event => {
         const rect = stage.getBoundingClientRect();
-        const nx = (event.clientX - rect.left) / rect.width - 0.5;
-        const ny = (event.clientY - rect.top) / rect.height - 0.5;
-        targetRotation.y = nx * 0.42;
-        targetRotation.x = 0.06 - ny * 0.28;
+        const nx = Math.max(-0.5, Math.min(0.5, (event.clientX - rect.left) / rect.width - 0.5));
+        const ny = Math.max(-0.5, Math.min(0.5, (event.clientY - rect.top) / rect.height - 0.5));
+        targetRotation.y = nx * 0.34;
+        targetRotation.x = 0.04 - ny * 0.22;
       };
 
       const onPointerEnter = () => {
@@ -222,6 +241,8 @@
 
       const onPointerLeave = () => {
         hoverGlow = 0;
+        targetRotation.x = 0.05;
+        targetRotation.y = 0;
         experience.classList.remove('drone-experience--glow');
       };
 
@@ -247,8 +268,8 @@
 
         const t = clock.getElapsedTime();
 
-        camera.rotation.y += (targetRotation.y - camera.rotation.y) * 0.045;
-        camera.rotation.x += (targetRotation.x - camera.rotation.x) * 0.045;
+        camera.rotation.y += (targetRotation.y - camera.rotation.y) * 0.06;
+        camera.rotation.x += (targetRotation.x - camera.rotation.x) * 0.06;
 
         floatingParts.forEach((part, index) => {
           part.position.y += Math.sin(t * 1.2 + index * 0.8) * 0.002;
