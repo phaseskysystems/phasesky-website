@@ -1,0 +1,230 @@
+/* Scoped styles for interactive drone experience */
+.drone-experience {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+  position: relative;
+  overflow: hidden;
+}
+
+.drone-experience__topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  margin-bottom: 0.75rem;
+}
+
+.drone-experience__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(98, 153, 255, 0.12);
+  color: var(--color-blue);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.drone-experience__status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-blue);
+  box-shadow: 0 0 0 6px rgba(98, 153, 255, 0.2);
+}
+
+.drone-experience__hint {
+  opacity: 0.85;
+}
+
+.drone-experience__stage {
+  position: relative;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(122, 168, 255, 0.22), rgba(122, 168, 255, 0) 44%),
+    radial-gradient(circle at 80% 24%, rgba(118, 141, 206, 0.22), rgba(118, 141, 206, 0) 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0 20%, rgba(255, 255, 255, 0) 32% 60%, rgba(255, 255, 255, 0.02) 68% 100%),
+    radial-gradient(circle at 50% 65%, rgba(22, 33, 59, 0.65), rgba(12, 16, 28, 0.35) 60%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 320px;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 22px 60px rgba(4, 10, 24, 0.4);
+}
+
+.drone-experience__stage::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 12px);
+  background-size: 120px 120px, 120px 120px;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.drone-experience__stage > * {
+  position: relative;
+  z-index: 1;
+}
+
+.drone-experience__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.drone-experience__led {
+  position: absolute;
+  top: 12%;
+  right: 8%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(98, 153, 255, 0.9), rgba(98, 153, 255, 0.1) 70%);
+  box-shadow: 0 0 16px rgba(98, 153, 255, 0.65);
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+}
+
+.drone-experience__caption {
+  margin-top: 0.75rem;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.drone-experience__fallback {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.drone-experience__layer {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: transform 420ms ease, opacity 320ms ease;
+}
+
+.drone-experience__layer--grid {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 11px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 11px),
+    radial-gradient(circle at 50% 55%, rgba(128, 170, 255, 0.12), rgba(128, 170, 255, 0) 48%),
+    radial-gradient(circle at 22% 22%, rgba(255, 255, 255, 0.07), transparent 18%),
+    radial-gradient(circle at 78% 74%, rgba(98, 153, 255, 0.12), transparent 28%);
+  background-size: 120px 120px, 140px 140px, 200% 200%, 160% 160%, 140% 140%;
+  opacity: 0.7;
+}
+
+.drone-experience__layer--drone {
+  background-image: radial-gradient(circle at 50% 45%, rgba(98, 153, 255, 0.28), rgba(98, 153, 255, 0.04) 38%),
+    radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 45%);
+}
+
+.drone-experience__layer--signal {
+  background-image: radial-gradient(circle at 30% 30%, rgba(98, 153, 255, 0.1), rgba(98, 153, 255, 0) 40%),
+    radial-gradient(circle at 70% 60%, rgba(98, 153, 255, 0.16), rgba(98, 153, 255, 0) 45%);
+  mix-blend-mode: screen;
+}
+
+.drone-experience__static {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle, rgba(124, 170, 255, 0.18), rgba(124, 170, 255, 0) 62%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.04), transparent 65%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  transition: opacity 320ms ease;
+}
+
+.drone-experience__static-body {
+  display: block;
+  width: 68px;
+  height: 68px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    radial-gradient(circle at 20% 25%, rgba(124, 170, 255, 0.25), rgba(124, 170, 255, 0) 55%);
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 28px rgba(10, 16, 32, 0.35);
+  position: relative;
+}
+
+.drone-experience__static-body::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 18px rgba(124, 170, 255, 0.35);
+}
+
+.drone-experience__static-led {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(152, 196, 255, 0.9), rgba(152, 196, 255, 0.2));
+  box-shadow: 0 0 14px rgba(152, 196, 255, 0.65), 0 0 28px rgba(152, 196, 255, 0.25);
+  margin-bottom: 10px;
+}
+
+.drone-experience--active .drone-experience__canvas {
+  opacity: 1;
+}
+
+.drone-experience--active .drone-experience__led {
+  opacity: 1;
+}
+
+.drone-experience--static .drone-experience__fallback {
+  opacity: 1;
+}
+
+.drone-experience--static .drone-experience__canvas,
+.drone-experience--static .drone-experience__led {
+  opacity: 0;
+}
+
+.drone-experience--glow .drone-experience__led {
+  box-shadow: 0 0 24px rgba(98, 153, 255, 0.8), 0 0 36px rgba(98, 153, 255, 0.4);
+}
+
+@media (max-width: 640px) {
+  .drone-experience__topline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drone-experience__layer,
+  .drone-experience__canvas {
+    transition: none !important;
+  }
+}
