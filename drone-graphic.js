@@ -43,30 +43,6 @@
     stage.addEventListener('pointerleave', handleLeave, { passive: true });
   };
 
-  const startScrollEffect = () => {
-    if (prefersReducedMotion) return;
-    let ticking = false;
-    const updateTilt = () => {
-      ticking = false;
-      const rect = stage.getBoundingClientRect();
-      const viewportCenter = window.innerHeight / 2;
-      const distance = Math.max(0, 1 - Math.abs(rect.top + rect.height / 2 - viewportCenter) / viewportCenter);
-      const angle = distance * 2;
-      stage.style.transform = `perspective(800px) rotateX(${angle}deg)`;
-      stage.style.opacity = 0.85 + distance * 0.15;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(updateTilt);
-      }
-    };
-
-    updateTilt();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  };
-
   const disposeThree = () => {
     cancelAnimationFrame(animationFrameId);
     resizeObserver?.disconnect();
@@ -88,167 +64,233 @@
     try {
       const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-      camera.position.set(0, 2.4, 8.2);
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+      camera.position.set(0, 2.2, 9);
+      camera.lookAt(0, 0.6, 0);
 
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
 
-      const ambient = new THREE.HemisphereLight(0x9bbdff, 0x0b1324, 0.65);
-      const keyLight = new THREE.DirectionalLight(0xb5ccff, 0.9);
-      keyLight.position.set(3, 5, 4);
-      const rimLight = new THREE.DirectionalLight(0x4d7dff, 0.55);
-      rimLight.position.set(-4, 3, -3);
+      const ambient = new THREE.HemisphereLight(0x9fc6ff, 0x1a1a1d, 0.82);
+      const keyLight = new THREE.DirectionalLight(0xcde5ff, 0.95);
+      keyLight.position.set(3.6, 5, 4.2);
+      const rimLight = new THREE.DirectionalLight(0x82bbff, 0.62);
+      rimLight.position.set(-4.2, 3.2, -3.4);
       scene.add(ambient, keyLight, rimLight);
 
-      const chassisMaterial = new THREE.MeshStandardMaterial({ color: 0x0f1b2f, metalness: 0.72, roughness: 0.28 });
-      const platingMaterial = new THREE.MeshStandardMaterial({ color: 0x1c2f4f, metalness: 0.82, roughness: 0.2, emissive: 0x162c55, emissiveIntensity: 0.12 });
-      const accentMaterial = new THREE.MeshStandardMaterial({ color: 0x7ea6ff, metalness: 0.5, roughness: 0.35, emissive: 0x2a5fd1, emissiveIntensity: 0.35 });
-      const glassMaterial = new THREE.MeshStandardMaterial({ color: 0xa9c6ff, metalness: 0.1, roughness: 0.05, transparent: true, opacity: 0.7, emissive: 0x1d3a6f, emissiveIntensity: 0.2 });
+      const matteBlack = 0x0c0c12;
+      const deepGraphite = 0x1b1b21;
+      const softSilver = 0xd8dde5;
+      const coolBlue = 0x8fc7ff;
 
-      const hull = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.7, 2.4), chassisMaterial);
-      hull.position.y = 0.32;
-      scene.add(hull);
+      const chassisMaterial = new THREE.MeshStandardMaterial({ color: matteBlack, metalness: 0.62, roughness: 0.36 });
+      const platingMaterial = new THREE.MeshStandardMaterial({ color: deepGraphite, metalness: 0.74, roughness: 0.28, emissive: 0x1f2730, emissiveIntensity: 0.08 });
+      const accentMaterial = new THREE.MeshStandardMaterial({ color: coolBlue, metalness: 0.42, roughness: 0.32, emissive: 0x4a7fb1, emissiveIntensity: 0.38 });
+      const canopyMaterial = new THREE.MeshStandardMaterial({ color: softSilver, metalness: 0.2, roughness: 0.12, transparent: true, opacity: 0.8, emissive: 0x4a7fb1, emissiveIntensity: 0.15 });
+      const motorMaterial = new THREE.MeshStandardMaterial({ color: deepGraphite, metalness: 0.76, roughness: 0.24 });
+      const propMaterial = new THREE.MeshStandardMaterial({ color: softSilver, transparent: true, opacity: 0.9, metalness: 0.08, roughness: 0.06 });
 
-      const keel = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.2, 0.6), platingMaterial);
-      keel.position.y = 0.05;
-      scene.add(keel);
+      const droneGroup = new THREE.Group();
+      scene.add(droneGroup);
 
-      const spine = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.24, 1.6), platingMaterial);
-      spine.position.y = 0.82;
-      scene.add(spine);
+      const hull = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.64, 2.24), chassisMaterial);
+      hull.position.y = 0.36;
+      droneGroup.add(hull);
 
-      const canopy = new THREE.Mesh(new THREE.BoxGeometry(2.05, 0.22, 1.35), glassMaterial);
-      canopy.position.set(-0.08, 1.05, -0.06);
-      canopy.rotation.y = -0.08;
-      scene.add(canopy);
+      const keel = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.18, 0.62), platingMaterial);
+      keel.position.y = 0.08;
+      droneGroup.add(keel);
 
-      const accentStrip = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.1, 1.8), accentMaterial);
-      accentStrip.position.set(1.35, 0.82, -0.1);
-      scene.add(accentStrip);
+      const spine = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.22, 1.48), platingMaterial);
+      spine.position.y = 0.84;
+      droneGroup.add(spine);
 
-      const armMaterial = new THREE.MeshStandardMaterial({ color: 0x111a2b, metalness: 0.85, roughness: 0.25 });
-      const rotorMaterial = new THREE.MeshStandardMaterial({ color: 0x2d3e5f, metalness: 0.78, roughness: 0.22, emissive: 0x0d2145, emissiveIntensity: 0.18 });
-      const propMaterial = new THREE.MeshStandardMaterial({ color: 0xc8d7f5, transparent: true, opacity: 0.92, metalness: 0.1, roughness: 0.05 });
+      const canopy = new THREE.Mesh(new THREE.BoxGeometry(2, 0.26, 1.28), canopyMaterial);
+      canopy.position.set(0, 1.04, 0);
+      canopy.rotation.y = -0.06;
+      droneGroup.add(canopy);
+
+      const accentStrip = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.1, 1.6), accentMaterial);
+      accentStrip.position.set(1.2, 0.84, 0);
+      droneGroup.add(accentStrip);
 
       const addEdges = mesh => {
         const edges = new THREE.EdgesGeometry(mesh.geometry, 50);
         const line = new THREE.LineSegments(
           edges,
-          new THREE.LineBasicMaterial({ color: 0x3a4f72, transparent: true, opacity: 0.32 })
+          new THREE.LineBasicMaterial({ color: 0x6d88ad, transparent: true, opacity: 0.25 })
         );
         line.position.copy(mesh.position);
         line.rotation.copy(mesh.rotation);
-        scene.add(line);
+        droneGroup.add(line);
       };
 
       [hull, spine].forEach(addEdges);
 
-      const createArm = (x, z) => {
-        const group = new THREE.Group();
-        const anchor = new THREE.Vector3(x * 0.92, 0.32, z * 0.92);
-        const midCurve = new THREE.Vector3(x * 1.12, 0.52, z * 1.04);
-        const leading = new THREE.Vector3(x * 1.32, 0.46, z * 1.28);
-        const outboard = new THREE.Vector3(x * 1.54, 0.6, z * 1.52);
-
-        const sparCurve = new THREE.CatmullRomCurve3([anchor, midCurve, leading, outboard]);
-        const spar = new THREE.Mesh(new THREE.TubeGeometry(sparCurve, 36, 0.1, 22, false), armMaterial);
-        group.add(spar);
-
-        const shroud = new THREE.Mesh(new THREE.CapsuleGeometry(0.22, 1.45, 16, 32), platingMaterial);
-        shroud.rotation.z = Math.PI / 2;
-        shroud.rotation.y = Math.PI / 4;
-        shroud.position.set(x * 0.88, 0.28, z * 0.88);
-        group.add(shroud);
-
-        const fin = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.18, 1.9, 24), platingMaterial);
-        fin.rotation.z = Math.PI / 2;
-        fin.rotation.y = Math.PI / 4;
-        fin.position.set(x * 1.18, 0.42, z * 1.14);
-        group.add(fin);
-
-        const rotor = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.38, 0.45, 32), rotorMaterial);
-        rotor.rotation.x = Math.PI / 2;
-        rotor.position.copy(outboard);
-        group.add(rotor);
-
-        const guard = new THREE.Mesh(new THREE.TorusGeometry(1.04, 0.028, 14, 48), accentMaterial);
-        guard.position.copy(rotor.position);
-        guard.rotation.x = Math.PI / 2;
-        group.add(guard);
-
-        const blade = new THREE.Mesh(new THREE.BoxGeometry(1.95, 0.04, 0.16), propMaterial);
-        blade.position.set(rotor.position.x, rotor.position.y + 0.24, rotor.position.z);
-        blade.userData.isBlade = true;
-        group.add(blade);
-
-        const bladeHalo = new THREE.Mesh(
-          new THREE.RingGeometry(0.4, 0.62, 36, 1, 0, Math.PI * 2),
-          new THREE.MeshBasicMaterial({ color: 0x7ea6ff, transparent: true, opacity: 0.2, side: THREE.DoubleSide })
-        );
-        bladeHalo.rotation.x = Math.PI / 2;
-        bladeHalo.position.set(rotor.position.x, rotor.position.y + 0.01, rotor.position.z);
-        group.add(bladeHalo);
-
-        scene.add(group);
+      const parts = [];
+      const registerPart = (mesh, offset) => {
+        parts.push({ mesh, base: mesh.position.clone(), offset: offset || new THREE.Vector3() });
       };
 
-      createArm(1.5, 1.1);
-      createArm(-1.5, 1.1);
-      createArm(1.5, -1.1);
-      createArm(-1.5, -1.1);
+      const armMaterial = new THREE.MeshStandardMaterial({ color: deepGraphite, metalness: 0.78, roughness: 0.26 });
 
-      const intake = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.52, 0.3, 28, 1, true), accentMaterial);
+      const createArm = (xSign, zSign) => {
+        const armGroup = new THREE.Group();
+
+        const sparPath = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(1.15 * xSign, 0.42, 0.95 * zSign),
+          new THREE.Vector3(1.38 * xSign, 0.48, 1.16 * zSign),
+          new THREE.Vector3(1.58 * xSign, 0.46, 1.38 * zSign),
+          new THREE.Vector3(1.78 * xSign, 0.5, 1.62 * zSign)
+        ]);
+        const spar = new THREE.Mesh(new THREE.TubeGeometry(sparPath, 40, 0.12, 24, false), armMaterial);
+        armGroup.add(spar);
+
+        const brace = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.12, 1.1, 20), armMaterial);
+        brace.rotation.z = Math.PI / 2;
+        brace.position.set(1.34 * xSign, 0.34, 1.04 * zSign);
+        armGroup.add(brace);
+
+        const motor = new THREE.Group();
+        const stator = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.28, 28), motorMaterial);
+        stator.rotation.x = Math.PI / 2;
+        stator.position.set(1.9 * xSign, 0.46, 1.74 * zSign);
+        motor.add(stator);
+
+        const bell = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.22, 32), motorMaterial);
+        bell.rotation.x = Math.PI / 2;
+        bell.position.set(1.9 * xSign, 0.6, 1.74 * zSign);
+        motor.add(bell);
+
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.22, 12), motorMaterial);
+        shaft.rotation.x = Math.PI / 2;
+        shaft.position.set(1.9 * xSign, 0.76, 1.74 * zSign);
+        motor.add(shaft);
+
+        const blade = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.04, 0.14), propMaterial);
+        blade.position.set(1.9 * xSign, 0.8, 1.74 * zSign);
+        blade.userData.isBlade = true;
+        motor.add(blade);
+
+        armGroup.add(motor);
+
+        armGroup.position.set(0, 0, 0);
+        droneGroup.add(armGroup);
+
+        registerPart(armGroup, new THREE.Vector3(0.18 * xSign, 0.1, 0.22 * zSign));
+      };
+
+      createArm(1, 1);
+      createArm(-1, 1);
+      createArm(1, -1);
+      createArm(-1, -1);
+
+      const intake = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.5, 0.26, 28, 1, true), accentMaterial);
       intake.rotation.z = Math.PI / 2;
-      intake.position.set(-1.1, 0.54, 0.35);
-      scene.add(intake);
+      intake.position.set(-1.02, 0.54, 0.32);
+      droneGroup.add(intake);
+      registerPart(intake, new THREE.Vector3(-0.12, 0.08, 0));
 
       const ledSphere = new THREE.Mesh(
-        new THREE.SphereGeometry(0.19, 32, 32),
-        new THREE.MeshStandardMaterial({ color: 0x9bc2ff, emissive: 0x4d7dff, emissiveIntensity: 1.35 })
+        new THREE.SphereGeometry(0.17, 32, 32),
+        new THREE.MeshStandardMaterial({ color: coolBlue, emissive: 0x6db4ff, emissiveIntensity: 1.1 })
       );
-      ledSphere.position.set(1.15, 0.96, -0.66);
-      scene.add(ledSphere);
+      ledSphere.position.set(1.05, 0.94, -0.62);
+      droneGroup.add(ledSphere);
+      registerPart(ledSphere, new THREE.Vector3(0.04, 0.06, -0.06));
 
       const navBeacon = new THREE.Mesh(
         new THREE.SphereGeometry(0.1, 24, 24),
-        new THREE.MeshStandardMaterial({ color: 0x7cf3ff, emissive: 0x7cf3ff, emissiveIntensity: 0.7, transparent: true, opacity: 0.9 })
+        new THREE.MeshStandardMaterial({ color: coolBlue, emissive: coolBlue, emissiveIntensity: 0.6, transparent: true, opacity: 0.9 })
       );
-      navBeacon.position.set(-1.3, 0.9, 0.72);
-      scene.add(navBeacon);
+      navBeacon.position.set(-1.2, 0.88, 0.68);
+      droneGroup.add(navBeacon);
+      registerPart(navBeacon, new THREE.Vector3(-0.06, 0.08, 0.06));
 
-      const undercarriage = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.12, 1.8), rotorMaterial);
-      undercarriage.position.y = -0.08;
-      scene.add(undercarriage);
+      const undercarriage = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.1, 1.62), motorMaterial);
+      undercarriage.position.y = -0.06;
+      droneGroup.add(undercarriage);
+      registerPart(undercarriage, new THREE.Vector3(0, -0.12, 0));
 
-      const floatingParts = [hull, spine, canopy, accentStrip];
+      registerPart(hull, new THREE.Vector3(0, 0.12, 0));
+      registerPart(spine, new THREE.Vector3(0.08, 0.16, 0));
+      registerPart(canopy, new THREE.Vector3(0, 0.18, 0));
+      registerPart(accentStrip, new THREE.Vector3(0.12, 0.1, 0));
+
       const clock = new THREE.Clock();
-      const targetRotation = { x: 0.05, y: 0 };
+      const targetRotation = { x: 0, y: 0 };
+      const currentRotation = { x: 0, y: 0 };
       let hoverGlow = 0;
+      let spinActive = false;
+      let engaged = false;
+      let explosionProgress = 0;
+      let explosionTarget = 0;
+      let explodedAt = 0;
+      let holdActive = false;
+      let reassembleTimeout;
+      const minExplodedMs = 5000;
 
       const onPointerMove = event => {
         const rect = stage.getBoundingClientRect();
         const nx = Math.max(-0.5, Math.min(0.5, (event.clientX - rect.left) / rect.width - 0.5));
         const ny = Math.max(-0.5, Math.min(0.5, (event.clientY - rect.top) / rect.height - 0.5));
-        targetRotation.y = nx * 0.34;
-        targetRotation.x = 0.04 - ny * 0.22;
+        targetRotation.y = nx * 0.28;
+        targetRotation.x = -ny * 0.22;
+        spinActive = true;
+        engaged = true;
       };
 
       const onPointerEnter = () => {
         hoverGlow = 1;
+        engaged = true;
         experience.classList.add('drone-experience--glow');
       };
 
       const onPointerLeave = () => {
         hoverGlow = 0;
-        targetRotation.x = 0.05;
+        targetRotation.x = 0;
         targetRotation.y = 0;
         experience.classList.remove('drone-experience--glow');
+      };
+
+      const setExploded = () => {
+        explosionTarget = 1;
+        explodedAt = performance.now();
+        holdActive = true;
+        clearTimeout(reassembleTimeout);
+      };
+
+      const reassemble = () => {
+        explosionTarget = 0;
+        holdActive = false;
+      };
+
+      const queueReassemble = () => {
+        const elapsed = performance.now() - explodedAt;
+        const remaining = Math.max(0, minExplodedMs - elapsed);
+        clearTimeout(reassembleTimeout);
+        reassembleTimeout = setTimeout(() => {
+          if (!holdActive) reassemble();
+        }, remaining);
+      };
+
+      const onPointerDown = () => {
+        if (explosionTarget === 1) return;
+        setExploded();
+        engaged = true;
+      };
+
+      const onPointerUp = () => {
+        if (explosionTarget === 0) return;
+        holdActive = false;
+        queueReassemble();
       };
 
       stage.addEventListener('pointermove', onPointerMove, { passive: true });
       stage.addEventListener('pointerenter', onPointerEnter, { passive: true });
       stage.addEventListener('pointerleave', onPointerLeave, { passive: true });
+      stage.addEventListener('pointerdown', onPointerDown);
+      window.addEventListener('pointerup', onPointerUp);
 
       const handleResize = () => {
         const { width, height } = stage.getBoundingClientRect();
@@ -267,30 +309,34 @@
         if (!isInView) return;
 
         const t = clock.getElapsedTime();
+        currentRotation.y += (targetRotation.y - currentRotation.y) * 0.08;
+        currentRotation.x += (targetRotation.x - currentRotation.x) * 0.08;
+        droneGroup.rotation.set(currentRotation.x, currentRotation.y, 0);
 
-        camera.rotation.y += (targetRotation.y - camera.rotation.y) * 0.06;
-        camera.rotation.x += (targetRotation.x - camera.rotation.x) * 0.06;
+        explosionProgress += (explosionTarget - explosionProgress) * 0.08;
+        const easedExplosion = THREE.MathUtils.smootherstep(explosionProgress, 0, 1);
 
-        floatingParts.forEach((part, index) => {
-          part.position.y += Math.sin(t * 1.2 + index * 0.8) * 0.002;
+        parts.forEach(({ mesh, base, offset }) => {
+          mesh.position.lerpVectors(base, base.clone().add(offset), easedExplosion);
         });
 
         scene.traverse(child => {
-          if (child.userData.isBlade && !prefersReducedMotion) {
-            child.rotation.y += 0.2;
+          if (child.userData.isBlade && spinActive && !prefersReducedMotion) {
+            child.rotation.y += 0.28;
           }
         });
 
-        const beaconPulse = 0.15 * Math.sin(t * 4) + 0.9;
-        navBeacon.material.emissiveIntensity = beaconPulse * 0.8;
-        ledSphere.material.emissiveIntensity = 1.05 + hoverGlow * 0.65 + Math.sin(t * 3) * 0.05;
+        const beaconPulse = engaged ? 0.12 * Math.sin(t * 3.2) + 0.88 : 0.9;
+        navBeacon.material.emissiveIntensity = beaconPulse * 0.7;
+        ledSphere.material.emissiveIntensity = engaged
+          ? 0.95 + hoverGlow * 0.55 + Math.sin(t * 2.8) * 0.05
+          : 0.95;
         renderer.render(scene, camera);
       };
 
       experience.classList.remove('drone-experience--static');
       experience.classList.add('drone-experience--active');
       animate();
-      startScrollEffect();
       isInteractive = true;
     } catch (error) {
       console.warn('WebGL drone experience failed, falling back to parallax.', error);
