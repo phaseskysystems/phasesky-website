@@ -65,8 +65,18 @@
       const motorMaterial = new THREE.MeshStandardMaterial({ color: carbonBlack, metalness: 0.78, roughness: 0.24 });
       const propMaterial = new THREE.MeshStandardMaterial({ color: softSilver, transparent: true, opacity: 0.9, metalness: 0.08, roughness: 0.06 });
 
-      const droneGroup = new THREE.Group();
-      scene.add(droneGroup);
+      const droneRoot = new THREE.Group();
+      droneRoot.position.set(0, 0, 0);
+      droneRoot.rotation.set(0, 0, 0);
+      scene.add(droneRoot);
+
+      const frameGroup = new THREE.Group();
+      const pcbGroup = new THREE.Group();
+      const powerGroup = new THREE.Group();
+      const motorsGroup = new THREE.Group();
+      const propsGroup = new THREE.Group();
+
+      droneRoot.add(frameGroup, pcbGroup, powerGroup, motorsGroup, propsGroup);
 
       const labelLayer = document.createElement('div');
       labelLayer.className = 'drone-experience__labels';
@@ -90,24 +100,24 @@
 
       const hull = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.64, 2.24), chassisMaterial);
       hull.position.y = 0.36;
-      droneGroup.add(hull);
+      frameGroup.add(hull);
 
       const keel = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.18, 0.62), platingMaterial);
       keel.position.y = 0.08;
-      droneGroup.add(keel);
+      frameGroup.add(keel);
 
       const spine = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.22, 1.48), platingMaterial);
-      spine.position.y = 0.84;
-      droneGroup.add(spine);
+      spine.position.y = 0.62;
+      pcbGroup.add(spine);
 
       const canopy = new THREE.Mesh(new THREE.BoxGeometry(2, 0.26, 1.28), canopyMaterial);
-      canopy.position.set(0, 1.04, 0);
+      canopy.position.set(0, 0.98, 0);
       canopy.rotation.y = -0.06;
-      droneGroup.add(canopy);
+      frameGroup.add(canopy);
 
       const accentStrip = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.1, 1.6), accentMaterial);
-      accentStrip.position.set(1.2, 0.84, 0);
-      droneGroup.add(accentStrip);
+      accentStrip.position.set(1.2, 0.8, 0);
+      frameGroup.add(accentStrip);
 
       const addEdges = mesh => {
         const edges = new THREE.EdgesGeometry(mesh.geometry, 50);
@@ -117,7 +127,7 @@
         );
         line.position.copy(mesh.position);
         line.rotation.copy(mesh.rotation);
-        droneGroup.add(line);
+        frameGroup.add(line);
       };
 
       [hull, spine].forEach(addEdges);
@@ -141,43 +151,48 @@
         brace.position.set(1.34 * xSign, 0.34, 1.04 * zSign);
         armGroup.add(brace);
 
-        const motor = new THREE.Group();
+        const motorMount = new THREE.Group();
+        motorMount.position.set(1.9 * xSign, 0.5, 1.74 * zSign);
+
         const stator = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.28, 28), motorMaterial);
         stator.rotation.x = Math.PI / 2;
-        stator.position.set(1.9 * xSign, 0.46, 1.74 * zSign);
-        motor.add(stator);
+        stator.position.set(0, -0.04, 0);
+        motorMount.add(stator);
 
         const bell = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.22, 32), motorMaterial);
         bell.rotation.x = Math.PI / 2;
-        bell.position.set(1.9 * xSign, 0.6, 1.74 * zSign);
-        motor.add(bell);
+        bell.position.set(0, 0.1, 0);
+        motorMount.add(bell);
 
         const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.22, 12), motorMaterial);
         shaft.rotation.x = Math.PI / 2;
-        shaft.position.set(1.9 * xSign, 0.76, 1.74 * zSign);
-        motor.add(shaft);
+        shaft.position.set(0, 0.26, 0);
+        motorMount.add(shaft);
+
+        const propAnchor = new THREE.Group();
+        propAnchor.position.set(1.9 * xSign, 0.8, 1.74 * zSign);
 
         const blade = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.04, 0.14), propMaterial);
-        blade.position.set(1.9 * xSign, 0.8, 1.74 * zSign);
+        blade.position.set(0, 0, 0);
         blade.userData.isBlade = true;
-        motor.add(blade);
+        propAnchor.add(blade);
 
-        armGroup.add(motor);
+        frameGroup.add(armGroup);
+        motorsGroup.add(motorMount);
+        propsGroup.add(propAnchor);
 
-        armGroup.position.set(0, 0, 0);
-        droneGroup.add(armGroup);
-
-        registerPart(armGroup, new THREE.Vector3(0.6 * xSign, 0.16, 0.6 * zSign));
+        registerPart(motorMount, new THREE.Vector3(0.7 * xSign, 0.12, 0.7 * zSign));
+        registerPart(propAnchor, new THREE.Vector3(0.72 * xSign, 0.24, 0.72 * zSign));
 
         if (xSign === 1 && zSign === 1) {
           const motorLabelAnchor = new THREE.Object3D();
-          motorLabelAnchor.position.set(2.1 * xSign, 0.62, 2.1 * zSign);
-          armGroup.add(motorLabelAnchor);
-          labels.push({ target: motorLabelAnchor, element: createLabel('MOTORS'), labelOffset: { x: 26, y: -8 } });
+          motorLabelAnchor.position.set(2.16 * xSign, 0.62, 2.16 * zSign);
+          motorMount.add(motorLabelAnchor);
+          labels.push({ target: motorLabelAnchor, element: createLabel('MOTORS'), labelOffset: { x: 24, y: -8 } });
 
           const propLabelAnchor = new THREE.Object3D();
-          propLabelAnchor.position.set(2.1 * xSign, 0.9, 2.1 * zSign);
-          armGroup.add(propLabelAnchor);
+          propLabelAnchor.position.set(0.2 * xSign, 0.14, 0.2 * zSign);
+          propAnchor.add(propLabelAnchor);
           labels.push({ target: propLabelAnchor, element: createLabel('PROPS'), labelOffset: { x: 18, y: -34 } });
         }
       };
@@ -190,41 +205,48 @@
       const intake = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.5, 0.26, 28, 1, true), accentMaterial);
       intake.rotation.z = Math.PI / 2;
       intake.position.set(-1.02, 0.54, 0.32);
-      droneGroup.add(intake);
+      powerGroup.add(intake);
+
+      const powerCell = new THREE.Mesh(new THREE.BoxGeometry(1.06, 0.32, 0.94), new THREE.MeshStandardMaterial({ color: softSilver, metalness: 0.36, roughness: 0.26 }));
+      powerCell.position.set(0.2, 0.12, -0.26);
+      powerGroup.add(powerCell);
 
       const ledSphere = new THREE.Mesh(
         new THREE.SphereGeometry(0.17, 32, 32),
         new THREE.MeshStandardMaterial({ color: glowBlue, emissive: 0x9adfff, emissiveIntensity: 1.0 })
       );
       ledSphere.position.set(1.05, 0.94, -0.62);
-      droneGroup.add(ledSphere);
+      frameGroup.add(ledSphere);
 
       const navBeacon = new THREE.Mesh(
         new THREE.SphereGeometry(0.1, 24, 24),
         new THREE.MeshStandardMaterial({ color: glowBlue, emissive: glowBlue, emissiveIntensity: 0.58, transparent: true, opacity: 0.9 })
       );
       navBeacon.position.set(-1.2, 0.88, 0.68);
-      droneGroup.add(navBeacon);
+      frameGroup.add(navBeacon);
 
       const undercarriage = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.1, 1.62), motorMaterial);
       undercarriage.position.y = -0.06;
-      droneGroup.add(undercarriage);
+      frameGroup.add(undercarriage);
 
-      registerPart(hull, new THREE.Vector3(0, 0.32, 0), 'FRAME', { x: -12, y: 22 });
-      registerPart(spine, new THREE.Vector3(0, 0.54, 0), 'PCB', { x: 8, y: -22 });
-      registerPart(canopy, new THREE.Vector3(0, 0.74, 0));
-      registerPart(accentStrip, new THREE.Vector3(0.2, 0.22, 0));
-      registerPart(keel, new THREE.Vector3(0, 0.22, 0));
-      registerPart(intake, new THREE.Vector3(-0.32, 0.22, 0), 'POWER', { x: -48, y: -6 });
-      registerPart(ledSphere, new THREE.Vector3(0.08, 0.1, -0.06));
-      registerPart(navBeacon, new THREE.Vector3(-0.08, 0.1, 0.08));
-      registerPart(undercarriage, new THREE.Vector3(0, -0.28, 0));
+      registerPart(frameGroup, new THREE.Vector3(0, 0.12, 0.04), 'FRAME', { x: -16, y: 20 });
+      registerPart(pcbGroup, new THREE.Vector3(0, 0.74, 0.38), 'PCB', { x: 12, y: -18 });
+      registerPart(powerGroup, new THREE.Vector3(0, -0.62, -0.14), 'POWER', { x: -40, y: 4 });
+      registerPart(undercarriage, new THREE.Vector3(0, -0.18, 0));
 
       let explosionProgress = 0;
       let explosionTarget = 0;
-      const spinSpeed = prefersReducedMotion ? 0 : 0.24;
+      let explosionStart = performance.now();
+      let explosionFrom = 0;
+      const transitionDuration = prefersReducedMotion ? 0 : 700;
+      const labelDelay = prefersReducedMotion ? 0 : 260;
+      const labelFade = prefersReducedMotion ? 0 : 240;
+      const spinSpeed = prefersReducedMotion ? 0 : 3.2;
+      const clock = new THREE.Clock();
 
       const toggleExploded = () => {
+        explosionFrom = explosionProgress;
+        explosionStart = performance.now();
         explosionTarget = explosionTarget === 1 ? 0 : 1;
         experience.classList.toggle('drone-experience--glow', explosionTarget === 1);
       };
@@ -243,7 +265,7 @@
       resizeObserver.observe(stage);
       handleResize();
 
-      const updateLabels = () => {
+      const updateLabels = labelOpacity => {
         const rect = stage.getBoundingClientRect();
         labels.forEach(({ target, element, labelOffset }) => {
           const world = target.getWorldPosition(new THREE.Vector3());
@@ -262,8 +284,7 @@
           const angle = Math.atan2(dy, dx);
           element.style.setProperty('--leader-length', `${length}px`);
           element.style.setProperty('--leader-angle', `${angle}rad`);
-          const visibility = prefersReducedMotion ? explosionTarget : explosionProgress;
-          element.style.opacity = visibility;
+          element.style.opacity = labelOpacity;
         });
       };
 
@@ -271,11 +292,13 @@
         animationFrameId = requestAnimationFrame(animate);
         if (!isInView) return;
 
-        const delta = prefersReducedMotion ? 1 : 0.12;
-        explosionProgress += (explosionTarget - explosionProgress) * delta;
+        const deltaSeconds = prefersReducedMotion ? 0 : clock.getDelta();
+        const elapsed = Math.min((performance.now() - explosionStart) / transitionDuration, 1);
+        const easeInOut = t => t * t * (3 - 2 * t);
         const easedExplosion = prefersReducedMotion
           ? explosionTarget
-          : THREE.MathUtils.smoothstep(explosionProgress, 0, 1);
+          : explosionFrom + (explosionTarget - explosionFrom) * easeInOut(elapsed);
+        explosionProgress = THREE.MathUtils.clamp(easedExplosion, 0, 1);
 
         parts.forEach(({ mesh, base, offset }) => {
           mesh.position.lerpVectors(base, base.clone().add(offset), easedExplosion);
@@ -283,11 +306,17 @@
 
         scene.traverse(child => {
           if (child.userData.isBlade && spinSpeed > 0) {
-            child.rotation.y += spinSpeed * 0.8;
+            child.rotation.y += spinSpeed * deltaSeconds;
           }
         });
 
-        updateLabels();
+        const labelElapsed = explosionTarget === 1 ? performance.now() - explosionStart - labelDelay : performance.now() - explosionStart;
+        const labelFactor = prefersReducedMotion
+          ? explosionTarget
+          : THREE.MathUtils.clamp(labelElapsed / labelFade, 0, 1);
+
+        const baseOpacity = explosionTarget === 1 ? labelFactor : 1 - labelFactor;
+        updateLabels(baseOpacity * explosionProgress);
         renderer.render(scene, camera);
       };
 
