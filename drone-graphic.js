@@ -66,15 +66,29 @@
       const propMaterial = new THREE.MeshStandardMaterial({ color: softSilver, transparent: true, opacity: 0.9, metalness: 0.08, roughness: 0.06 });
 
       const droneRoot = new THREE.Group();
+      droneRoot.name = 'DRONE_ROOT';
       droneRoot.position.set(0, 0, 0);
       droneRoot.rotation.set(0, 0, 0);
+      droneRoot.matrixAutoUpdate = false;
+      const lockRootTransform = () => {
+        droneRoot.position.set(0, 0, 0);
+        droneRoot.rotation.set(0, 0, 0);
+        droneRoot.updateMatrix();
+        droneRoot.updateMatrixWorld(true);
+      };
+      lockRootTransform();
       scene.add(droneRoot);
 
       const frameGroup = new THREE.Group();
+      frameGroup.name = 'FRAME';
       const pcbGroup = new THREE.Group();
+      pcbGroup.name = 'PCB';
       const powerGroup = new THREE.Group();
+      powerGroup.name = 'POWER';
       const motorsGroup = new THREE.Group();
+      motorsGroup.name = 'MOTORS';
       const propsGroup = new THREE.Group();
+      propsGroup.name = 'PROPS';
 
       droneRoot.add(frameGroup, pcbGroup, powerGroup, motorsGroup, propsGroup);
 
@@ -170,7 +184,7 @@
         motorMount.add(shaft);
 
         const propAnchor = new THREE.Group();
-        propAnchor.position.set(1.9 * xSign, 0.8, 1.74 * zSign);
+        propAnchor.position.set(1.9 * xSign, 0.82, 1.74 * zSign);
 
         const blade = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.04, 0.14), propMaterial);
         blade.position.set(0, 0, 0);
@@ -181,8 +195,8 @@
         motorsGroup.add(motorMount);
         propsGroup.add(propAnchor);
 
-        registerPart(motorMount, new THREE.Vector3(0.7 * xSign, 0.12, 0.7 * zSign));
-        registerPart(propAnchor, new THREE.Vector3(0.72 * xSign, 0.24, 0.72 * zSign));
+        registerPart(motorMount, new THREE.Vector3(0.84 * xSign, 0.12, 0.84 * zSign));
+        registerPart(propAnchor, new THREE.Vector3(0.84 * xSign, 0.28, 0.84 * zSign));
 
         if (xSign === 1 && zSign === 1) {
           const motorLabelAnchor = new THREE.Object3D();
@@ -191,7 +205,7 @@
           labels.push({ target: motorLabelAnchor, element: createLabel('MOTORS'), labelOffset: { x: 24, y: -8 } });
 
           const propLabelAnchor = new THREE.Object3D();
-          propLabelAnchor.position.set(0.2 * xSign, 0.14, 0.2 * zSign);
+          propLabelAnchor.position.set(0, 0.14, 0);
           propAnchor.add(propLabelAnchor);
           labels.push({ target: propLabelAnchor, element: createLabel('PROPS'), labelOffset: { x: 18, y: -34 } });
         }
@@ -229,19 +243,19 @@
       undercarriage.position.y = -0.06;
       frameGroup.add(undercarriage);
 
-      registerPart(frameGroup, new THREE.Vector3(0, 0.12, 0.04), 'FRAME', { x: -16, y: 20 });
-      registerPart(pcbGroup, new THREE.Vector3(0, 0.74, 0.38), 'PCB', { x: 12, y: -18 });
-      registerPart(powerGroup, new THREE.Vector3(0, -0.62, -0.14), 'POWER', { x: -40, y: 4 });
+      registerPart(frameGroup, new THREE.Vector3(0, 0.08, 0), 'FRAME', { x: -16, y: 20 });
+      registerPart(pcbGroup, new THREE.Vector3(0, 0.92, 0.38), 'PCB', { x: 12, y: -18 });
+      registerPart(powerGroup, new THREE.Vector3(0, -0.82, -0.12), 'POWER', { x: -40, y: 4 });
       registerPart(undercarriage, new THREE.Vector3(0, -0.18, 0));
 
       let explosionProgress = 0;
       let explosionTarget = 0;
       let explosionStart = performance.now();
       let explosionFrom = 0;
-      const transitionDuration = prefersReducedMotion ? 0 : 700;
+      const transitionDuration = prefersReducedMotion ? 0 : 720;
       const labelDelay = prefersReducedMotion ? 0 : 260;
       const labelFade = prefersReducedMotion ? 0 : 240;
-      const spinSpeed = prefersReducedMotion ? 0 : 3.2;
+      const spinSpeed = prefersReducedMotion ? 1.2 : 3.2;
       const clock = new THREE.Clock();
 
       const toggleExploded = () => {
@@ -249,6 +263,7 @@
         explosionStart = performance.now();
         explosionTarget = explosionTarget === 1 ? 0 : 1;
         experience.classList.toggle('drone-experience--glow', explosionTarget === 1);
+        experience.classList.toggle('drone-experience--exploded', explosionTarget === 1);
       };
 
       stage.addEventListener('click', toggleExploded);
@@ -291,6 +306,8 @@
       const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
         if (!isInView) return;
+
+        lockRootTransform();
 
         const deltaSeconds = prefersReducedMotion ? 0 : clock.getDelta();
         const elapsed = Math.min((performance.now() - explosionStart) / transitionDuration, 1);
