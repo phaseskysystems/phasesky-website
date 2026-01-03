@@ -197,7 +197,9 @@ main {
 }
 
 .cta-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--color-accent);
   color: var(--color-bg);
   padding: 0.75rem 2rem;
