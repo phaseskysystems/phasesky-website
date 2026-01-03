@@ -1,4 +1,3 @@
-// Rev. 1.2.0
 import { buildPhaseSkyDroneGraphic, PHASESKY_MODES } from './PhaseSkyDroneGraphic_REV_002.js';
 
 const TRANSITION_DURATION = 700;
