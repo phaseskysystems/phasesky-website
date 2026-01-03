@@ -1,3 +1,4 @@
+<!-- Rev. 1.2.0 -->
 PhaseSky Website
 
 PhaseSky is a clean, professional website for an engineering‑first drone systems company. It is designed to convey the seriousness, restraint and technical depth of the program while remaining approachable to hobbyists and engineers alike. The site uses a bubble‑card interface with generous whitespace, consistent typography, and calm animations.
