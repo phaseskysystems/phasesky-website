@@ -605,29 +605,40 @@ main {
 .timeline {
   position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: var(--timeline-align, center);
+  align-items: center;
+  gap: clamp(1.5rem, 2vw, 2.5rem);
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: var(--spacing-md);
-  padding-top: var(--spacing-sm);
-  padding-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) 0 var(--spacing-md);
 }
 
 .timeline::before {
   content: "";
   position: absolute;
-  /* Position the connecting line at half the node height (20px / 2 = 10) plus a little offset */
-  /* Adjust line position to align with centre of 24px nodes */
-  top: 18px;
+  top: 12px;
   left: 0;
   right: 0;
-  /* Use a dashed accent line to represent phases connecting the nodes */
-  border-top: 2px dashed var(--color-muted);
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    rgba(76, 175, 80, 0.6) 0%,
+    rgba(76, 175, 80, 0.85) 12%,
+    rgba(255, 152, 0, 0.8) 32%,
+    rgba(54, 129, 208, 0.8) 60%,
+    rgba(64, 86, 115, 0.75) 85%
+  );
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(64, 86, 115, 0.25), 0 0 24px rgba(54, 129, 208, 0.18);
   z-index: 1;
 }
 
 .timeline-item {
   position: relative;
-  flex: 1;
+  flex: 0 1 170px;
   text-align: center;
 }
 
