@@ -605,29 +605,76 @@ main {
 .timeline {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  --timeline-node-size: 24px;
+  --timeline-rail-stops:
+    rgba(76, 175, 80, 0.95) 0%,
+    rgba(76, 175, 80, 0.95) 14.2857%,
+    rgba(255, 152, 0, 0.98) 14.2857%,
+    rgba(255, 152, 0, 0.98) 28.5714%,
+    rgba(54, 129, 208, 0.94) 28.5714%,
+    rgba(54, 129, 208, 0.94) 42.8571%,
+    rgba(54, 129, 208, 0.94) 42.8571%,
+    rgba(54, 129, 208, 0.94) 57.1429%,
+    rgba(64, 86, 115, 0.9) 57.1429%,
+    rgba(64, 86, 115, 0.9) 71.4286%,
+    rgba(64, 86, 115, 0.9) 71.4286%,
+    rgba(64, 86, 115, 0.9) 85.7143%,
+    rgba(64, 86, 115, 0.9) 85.7143%,
+    rgba(64, 86, 115, 0.9) 100%;
+  justify-content: var(--timeline-align, center);
   align-items: flex-start;
+  gap: clamp(1.5rem, 2vw, 2.5rem);
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: var(--spacing-md);
-  padding-top: var(--spacing-sm);
-  padding-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) 0 var(--spacing-md);
 }
 
 .timeline::before {
   content: "";
   position: absolute;
-  /* Position the connecting line at half the node height (20px / 2 = 10) plus a little offset */
-  /* Adjust line position to align with centre of 24px nodes */
-  top: 18px;
+  top: calc(var(--spacing-sm) + (var(--timeline-node-size) / 2));
   left: 0;
   right: 0;
-  /* Use a dashed accent line to represent phases connecting the nodes */
-  border-top: 2px dashed var(--color-muted);
+  height: 4px;
+  background: linear-gradient(90deg, var(--timeline-rail-stops));
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(54, 129, 208, 0.2), 0 0 24px rgba(64, 86, 115, 0.22);
   z-index: 1;
+}
+
+.timeline.journey-timeline {
+  --timeline-rail-stops:
+    /* Transitions aligned to milestone centers (nodes @ ~10,30,50,70,90) */
+    rgba(76, 175, 80, 0.95) 0%,
+    rgba(76, 175, 80, 0.95) 50%,
+    rgba(255, 152, 0, 0.98) 50%,
+    rgba(255, 152, 0, 0.98) 70%,
+    rgba(54, 129, 208, 0.94) 70%,
+    rgba(54, 129, 208, 0.94) 90%,
+    rgba(64, 86, 115, 0.9) 90%,
+    rgba(64, 86, 115, 0.9) 108%;
+}
+
+.timeline.program-status {
+  --timeline-rail-stops:
+    /* 8 nodes @ ~6.25,18.75,31.25,43.75,56.25,68.75,81.25,93.75 */
+    rgba(76, 175, 80, 0.95) 0%,
+    rgba(76, 175, 80, 0.95) 18.75%,
+    rgba(255, 152, 0, 0.98) 18.75%,
+    rgba(255, 152, 0, 0.98) 31.25%,
+    rgba(54, 129, 208, 0.94) 31.25%,
+    rgba(54, 129, 208, 0.94) 56.25%,
+    rgba(64, 86, 115, 0.9) 56.25%,
+    rgba(64, 86, 115, 0.9) 93.75%,
+    rgba(64, 86, 115, 0.9) 108%;
 }
 
 .timeline-item {
   position: relative;
-  flex: 1;
+  flex: 0 1 170px;
   text-align: center;
 }
 
@@ -637,14 +684,33 @@ main {
   pseudo‑element draws the inner filled circle and applies a soft glow.
 */
 .timeline-item .node {
-  width: 24px;
-  height: 24px;
+  width: var(--timeline-node-size);
+  height: var(--timeline-node-size);
   border-radius: 50%;
   margin: 0 auto;
   position: relative;
   border: 2px solid var(--status-color, var(--color-muted));
-  background-color: transparent;
+  background-color: rgba(1, 6, 11, 0.5);
   z-index: 2;
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.4),
+    0 0 0 6px rgba(10, 17, 27, 0.85),
+    0 0 22px rgba(var(--glow-r), var(--glow-g), var(--glow-b), 0.42);
+}
+
+.timeline-item .node::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.4) 25%,
+    rgba(0, 0, 0, 0.28) 55%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  filter: blur(1px);
+  z-index: -1;
 }
 
 /* Create the inner dot and glow */
@@ -654,8 +720,8 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
+  width: calc(var(--timeline-node-size) * 0.5);
+  height: calc(var(--timeline-node-size) * 0.5);
   border-radius: 50%;
   /* Use a radial gradient and drop shadow to create a more volumetric glow */
   background: radial-gradient(
