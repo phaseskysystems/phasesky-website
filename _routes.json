@@ -1,4 +1,5 @@
 {
+  "_comment": "Rev. 1.2.0",
   "version": 1,
   "include": ["/*"],
   "exclude": [
