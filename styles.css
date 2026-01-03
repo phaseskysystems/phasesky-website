@@ -647,13 +647,27 @@ main {
 
 .timeline.journey-timeline {
   --timeline-rail-stops:
-    /* Transitions aligned to milestone centers (5 nodes @ 0,25,50,75,100) */
+    /* Transitions aligned to milestone centers (nodes @ 0,25,50,75,100) */
     rgba(76, 175, 80, 0.95) 0%,
     rgba(76, 175, 80, 0.95) 50%,
     rgba(255, 152, 0, 0.98) 50%,
     rgba(255, 152, 0, 0.98) 75%,
     rgba(54, 129, 208, 0.94) 75%,
     rgba(54, 129, 208, 0.94) 100%,
+    rgba(64, 86, 115, 0.9) 100%,
+    rgba(64, 86, 115, 0.9) 115%;
+}
+
+.timeline.program-status {
+  --timeline-rail-stops:
+    /* 8 nodes @ 0,14.2857,28.5714,42.8571,57.1429,71.4286,85.7143,100 */
+    rgba(76, 175, 80, 0.95) 0%,
+    rgba(76, 175, 80, 0.95) 14.2857%,
+    rgba(255, 152, 0, 0.98) 14.2857%,
+    rgba(255, 152, 0, 0.98) 28.5714%,
+    rgba(54, 129, 208, 0.94) 28.5714%,
+    rgba(54, 129, 208, 0.94) 57.1429%,
+    rgba(64, 86, 115, 0.9) 57.1429%,
     rgba(64, 86, 115, 0.9) 100%,
     rgba(64, 86, 115, 0.9) 115%;
 }
