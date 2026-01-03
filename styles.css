@@ -605,29 +605,46 @@ main {
 .timeline {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  --timeline-node-size: 24px;
+  justify-content: var(--timeline-align, center);
   align-items: flex-start;
+  gap: clamp(1.5rem, 2vw, 2.5rem);
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: var(--spacing-md);
-  padding-top: var(--spacing-sm);
-  padding-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) 0 var(--spacing-md);
 }
 
 .timeline::before {
   content: "";
   position: absolute;
-  /* Position the connecting line at half the node height (20px / 2 = 10) plus a little offset */
-  /* Adjust line position to align with centre of 24px nodes */
-  top: 18px;
+  top: calc(var(--spacing-sm) + (var(--timeline-node-size) / 2));
   left: 0;
   right: 0;
-  /* Use a dashed accent line to represent phases connecting the nodes */
-  border-top: 2px dashed var(--color-muted);
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    rgba(76, 175, 80, 0.9) 0%,
+    rgba(76, 175, 80, 0.9) 12.5%,
+    rgba(255, 152, 0, 0.95) 12.5%,
+    rgba(255, 152, 0, 0.95) 25%,
+    rgba(54, 129, 208, 0.9) 25%,
+    rgba(54, 129, 208, 0.9) 37.5%,
+    rgba(54, 129, 208, 0.9) 37.5%,
+    rgba(54, 129, 208, 0.9) 50%,
+    rgba(64, 86, 115, 0.85) 50%,
+    rgba(64, 86, 115, 0.85) 100%
+  );
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(54, 129, 208, 0.2), 0 0 24px rgba(64, 86, 115, 0.22);
   z-index: 1;
 }
 
 .timeline-item {
   position: relative;
-  flex: 1;
+  flex: 0 1 170px;
   text-align: center;
 }
 
@@ -637,8 +654,8 @@ main {
   pseudo‑element draws the inner filled circle and applies a soft glow.
 */
 .timeline-item .node {
-  width: 24px;
-  height: 24px;
+  width: var(--timeline-node-size);
+  height: var(--timeline-node-size);
   border-radius: 50%;
   margin: 0 auto;
   position: relative;
@@ -654,8 +671,8 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
+  width: calc(var(--timeline-node-size) * 0.5);
+  height: calc(var(--timeline-node-size) * 0.5);
   border-radius: 50%;
   /* Use a radial gradient and drop shadow to create a more volumetric glow */
   background: radial-gradient(
