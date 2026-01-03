@@ -626,16 +626,20 @@ main {
   height: 4px;
   background: linear-gradient(
     90deg,
-    rgba(76, 175, 80, 0.9) 0%,
-    rgba(76, 175, 80, 0.9) 12.5%,
-    rgba(255, 152, 0, 0.95) 12.5%,
-    rgba(255, 152, 0, 0.95) 25%,
-    rgba(54, 129, 208, 0.9) 25%,
-    rgba(54, 129, 208, 0.9) 37.5%,
-    rgba(54, 129, 208, 0.9) 37.5%,
-    rgba(54, 129, 208, 0.9) 50%,
-    rgba(64, 86, 115, 0.85) 50%,
-    rgba(64, 86, 115, 0.85) 100%
+    rgba(76, 175, 80, 0.95) 0%,
+    rgba(76, 175, 80, 0.95) 14.285%,
+    rgba(255, 152, 0, 0.98) 14.285%,
+    rgba(255, 152, 0, 0.98) 28.57%,
+    rgba(54, 129, 208, 0.94) 28.57%,
+    rgba(54, 129, 208, 0.94) 42.855%,
+    rgba(54, 129, 208, 0.94) 42.855%,
+    rgba(54, 129, 208, 0.94) 57.14%,
+    rgba(64, 86, 115, 0.9) 57.14%,
+    rgba(64, 86, 115, 0.9) 71.425%,
+    rgba(64, 86, 115, 0.9) 71.425%,
+    rgba(64, 86, 115, 0.9) 85.71%,
+    rgba(64, 86, 115, 0.9) 85.71%,
+    rgba(64, 86, 115, 0.9) 100%
   );
   border-radius: 999px;
   box-shadow: 0 0 12px rgba(54, 129, 208, 0.2), 0 0 24px rgba(64, 86, 115, 0.22);
@@ -662,6 +666,10 @@ main {
   border: 2px solid var(--status-color, var(--color-muted));
   background-color: transparent;
   z-index: 2;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.35),
+    0 0 0 4px rgba(10, 17, 27, 0.8),
+    0 0 22px rgba(var(--glow-r), var(--glow-g), var(--glow-b), 0.4);
 }
 
 /* Create the inner dot and glow */
