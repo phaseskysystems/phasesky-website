@@ -1,6 +1,7 @@
 // Environment variables expected when deployed on Cloudflare Pages Functions:
 // - CONTACT_TO_EMAIL: destination inbox
-// - CONTACT_FROM_EMAIL: verified from/sender address for MailChannels
+// - CONTACT_FROM_EMAIL: verified from/sender address for Resend
+// - RESEND_API_KEY: API key for Resend email delivery
 // - CONTACT_RATE_LIMIT_KV: (optional) KV binding for rate limiting
 
 const ALLOWED_TOPICS = ['Sales', 'Partnership', 'Support', 'Other'];
@@ -94,31 +95,28 @@ async function isRateLimited(ip, env) {
 async function sendMail(payload, env) {
   const toEmail = env.CONTACT_TO_EMAIL;
   const fromEmail = env.CONTACT_FROM_EMAIL;
+  const apiKey = env.RESEND_API_KEY;
 
-  if (!toEmail || !fromEmail) {
+  if (!toEmail || !fromEmail || !apiKey) {
     throw new Error('Email settings are not configured.');
   }
 
   const subject = `PhaseSky Contact: ${payload.topic}`;
-  const content = buildEmailBody(payload);
+  const { text, html } = buildEmailBody(payload);
 
-  const response = await fetch('https://api.mailchannels.net/tx/v1/send', {
+  const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
-      personalizations: [
-        {
-          to: [{ email: toEmail }],
-        },
-      ],
-      from: { email: fromEmail, name: payload.name || 'PhaseSky Contact' },
+      from: fromEmail,
+      to: toEmail,
       subject,
-      content: [
-        {
-          type: 'text/plain',
-          value: content,
-        },
-      ],
+      reply_to: payload.email,
+      text,
+      html,
     }),
   });
 
@@ -129,7 +127,7 @@ async function sendMail(payload, env) {
 }
 
 function buildEmailBody({ name, email, company = '', topic, message, metadata = {} }) {
-  const lines = [
+  const textLines = [
     `Name: ${name}`,
     `Email: ${email}`,
     `Company: ${company || '—'}`,
@@ -139,17 +137,47 @@ function buildEmailBody({ name, email, company = '', topic, message, metadata = 
     message,
   ];
 
-  if (metadata && typeof metadata === 'object') {
-    const metaLines = Object.entries(metadata)
-      .map(([key, value]) => `${key}: ${value}`)
-      .filter(Boolean);
+  const metaEntries = metadata && typeof metadata === 'object'
+    ? Object.entries(metadata).filter(([, value]) => value !== undefined && value !== null)
+    : [];
 
-    if (metaLines.length) {
-      lines.push('', 'Metadata:', ...metaLines);
-    }
+  if (metaEntries.length) {
+    textLines.push('', 'Metadata:', ...metaEntries.map(([key, value]) => `${key}: ${value}`));
   }
 
-  return lines.join('\n');
+  const text = textLines.join('\n');
+
+  const htmlLines = [
+    `<p><strong>Name:</strong> ${escapeHtml(name)}</p>`,
+    `<p><strong>Email:</strong> ${escapeHtml(email)}</p>`,
+    `<p><strong>Company:</strong> ${escapeHtml(company || '—')}</p>`,
+    `<p><strong>Topic:</strong> ${escapeHtml(topic)}</p>`,
+    '<hr style="border: 1px solid #e5e7eb;" />',
+    `<p style="white-space: pre-line;">${escapeHtml(message)}</p>`,
+  ];
+
+  if (metaEntries.length) {
+    htmlLines.push('<hr style="border: 1px solid #e5e7eb;" />');
+    htmlLines.push('<p><strong>Metadata</strong></p>');
+    htmlLines.push(
+      '<ul>' +
+        metaEntries
+          .map(([key, value]) => `<li><strong>${escapeHtml(key)}:</strong> ${escapeHtml(String(value))}</li>`)
+          .join('') +
+      '</ul>',
+    );
+  }
+
+  return { text, html: htmlLines.join('') };
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 function json(body, status = 200) {
