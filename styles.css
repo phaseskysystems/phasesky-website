@@ -101,10 +101,19 @@ header {
 .logo {
   display: flex;
   align-items: center;
+  gap: 0.65rem;
+  color: var(--color-primary);
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .logo img {
   height: clamp(36px, 4vw, 44px);
+}
+
+.logo-wordmark {
+  font-size: clamp(1.05rem, 2.4vw, 1.2rem);
+  line-height: 1;
 }
 
 nav ul {
