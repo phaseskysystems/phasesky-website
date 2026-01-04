@@ -1,4 +1,4 @@
-<!-- Rev. 1.2.0 -->
+<!-- Rev. 1.3.0 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,7 +17,7 @@
     <header>
       <div class="container header-container">
         <a href="index.html" class="logo">
-        <img src="PhaseSkyLogo.png" alt="PhaseSky logo" />
+          <img src="PhaseSkyLogo.png" alt="PhaseSky logo" />
         </a>
         <nav>
           <ul>
@@ -30,27 +30,121 @@
       </div>
     </header>
     <main>
-      <!-- Page Hero -->
-      <section class="bubble page-hero">
+      <section class="contact-hero">
         <div class="container">
-          <h1>Contact PhaseSky</h1>
-          <p>Reach out to our engineering team</p>
+          <div class="contact-grid bubble">
+            <div class="contact-copy">
+              <p class="eyebrow">Contact</p>
+              <h1>Tell us what you’re building.</h1>
+              <p class="subtitle">
+                We’ll respond with clarity and speed. Share context and our engineering team will route you to the right person.
+              </p>
+              <div class="contact-meta">
+                <div class="meta-row">
+                  <span class="meta-label">Email</span>
+                  <a href="mailto:info@phasesky.com">info@phasesky.com</a>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Response</span>
+                  <span class="meta-value">Typical reply: 1–2 business days</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Location</span>
+                  <span class="meta-value">Remote-first • UTC ±3</span>
+                </div>
+              </div>
+              <div class="contact-links">
+                <a class="chip" href="#partnerships">Partnerships</a>
+                <a class="chip" href="#support">Support</a>
+              </div>
+            </div>
+            <div class="contact-card" aria-live="polite">
+              <form id="contact-form" novalidate>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="name">Full Name<span aria-hidden="true">*</span></label>
+                    <input id="name" name="name" type="text" required autocomplete="name" />
+                    <p class="field-hint" data-error="name"></p>
+                  </div>
+                  <div class="form-field">
+                    <label for="email">Email<span aria-hidden="true">*</span></label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      autocomplete="email"
+                      inputmode="email"
+                      pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                    />
+                    <p class="field-hint" data-error="email"></p>
+                  </div>
+                  <div class="form-field">
+                    <label for="company">Company / Organization</label>
+                    <input id="company" name="company" type="text" autocomplete="organization" />
+                  </div>
+                  <div class="form-field">
+                    <label for="topic">Topic<span aria-hidden="true">*</span></label>
+                    <div class="select-wrapper">
+                      <select id="topic" name="topic" required>
+                        <option value="" disabled selected>Select a topic</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Partnership">Partnership</option>
+                        <option value="Support">Support</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <p class="field-hint" data-error="topic"></p>
+                  </div>
+                  <div class="form-field full-width">
+                    <label for="message">Message<span aria-hidden="true">*</span></label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="5"
+                      minlength="20"
+                      required
+                      aria-describedby="message-count"
+                    ></textarea>
+                    <div class="field-meta">
+                      <p class="field-hint" data-error="message"></p>
+                      <span id="message-count" class="char-count">0 / 20</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="honeypot" aria-hidden="true">
+                  <label for="website">Website</label>
+                  <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+                </div>
+                <div class="form-actions">
+                  <p class="privacy">We use your details only to respond to this inquiry.</p>
+                  <button type="submit" id="submit-btn" disabled>Send message</button>
+                </div>
+                <p class="form-error" role="alert" aria-live="assertive" id="form-error"></p>
+              </form>
+              <div id="contact-success" class="contact-success" hidden tabindex="-1">
+                <div class="success-icon" aria-hidden="true">✓</div>
+                <h2>Message received.</h2>
+                <p>We’ll reply soon.</p>
+                <a href="#" id="contact-reset" class="chip">Send another message</a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-      <!-- Contact Info Bubble -->
-      <section class="bubble">
-        <div class="container">
+      <section class="contact-anchor" id="partnerships">
+        <div class="container bubble">
+          <h2>Partnerships</h2>
           <p>
-            PhaseSky operates as a focused engineering program. We welcome
-            inquiries from builders, researchers, and collaborators. For
-            partnership discussions, technical questions, or support, please
-            contact us via email.
+            Strategic collaborations, co-development, or joint research inquiries are welcome. Include relevant timelines and scope so we can assemble the right stakeholders.
           </p>
-          <p class="mt-md"><strong>Email:</strong> <a href="mailto:info@phasesky.com">info@phasesky.com</a></p>
-          <p class="mt-sm"><strong>GitHub:</strong> <a href="https://github.com/phasesky" target="_blank" rel="noopener">github.com/phasesky</a></p>
-          <p class="mt-md" style="font-size: 0.9rem; color: var(--color-secondary)">
-            We typically respond within two business days. For urgent
-            matters, please include your timeline in the subject line.
+        </div>
+      </section>
+      <section class="contact-anchor" id="support">
+        <div class="container bubble">
+          <h2>Support</h2>
+          <p>
+            Need assistance with a PhaseSky prototype or integration? Share the environment, logs, and desired outcomes for the quickest path to resolution.
           </p>
         </div>
       </section>
@@ -60,5 +154,6 @@
         <p>&copy; 2026 PhaseSky. All rights reserved.</p>
       </div>
     </footer>
+    <script src="js/contact.js" defer></script>
   </body>
 </html>
